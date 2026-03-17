@@ -1,0 +1,53 @@
+@model AsumbiCampusSystem.Models.AttendanceRecord
+
+@{
+    ViewData["Title"] = "Add Attendance";
+}
+
+<div class="container mt-4">
+    <h2>Add Attendance</h2>
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger">@ViewBag.Error</div>
+    }
+
+    <form method="post" action="/Attendance/Create">
+        <div class="mb-3">
+            <label class="form-label">Student Name</label>
+            <input name="StudentName" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Admission Number</label>
+            <input name="AdmissionNumber" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Class Name</label>
+            <input name="ClassName" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Date</label>
+            <input name="Date" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Status</label>
+            <select name="Status" class="form-select">
+                <option value="Present">Present</option>
+                <option value="Late">Late</option>
+                <option value="Absent">Absent</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Recorded By</label>
+            <input name="RecordedBy" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-success">Save</button>
+        <a href="/Attendance" class="btn btn-secondary">Back</a>
+    </form>
+</div>

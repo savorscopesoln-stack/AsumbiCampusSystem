@@ -1,0 +1,57 @@
+@model AsumbiCampusSystem.Models.Student
+
+@{
+    ViewData["Title"] = "Add Student";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-3">Add Student</h2>
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger">
+            @ViewBag.Error
+        </div>
+    }
+
+    <form method="post" asp-action="Create">
+        @Html.AntiForgeryToken()
+
+        <div class="mb-3">
+            <label asp-for="FullName" class="form-label"></label>
+            <input asp-for="FullName" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="AdmissionNumber" class="form-label"></label>
+            <input asp-for="AdmissionNumber" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="ClassName" class="form-label"></label>
+            <input asp-for="ClassName" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="ParentPhone" class="form-label"></label>
+            <input asp-for="ParentPhone" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="RFID_UID" class="form-label"></label>
+            <input asp-for="RFID_UID" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Status" class="form-label"></label>
+            <select asp-for="Status" class="form-select">
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+                <option value="Suspended">Suspended</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success">Save Student</button>
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </form>
+</div>

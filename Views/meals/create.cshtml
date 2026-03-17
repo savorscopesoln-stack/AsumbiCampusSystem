@@ -1,0 +1,51 @@
+@model AsumbiCampusSystem.Models.MealRecord
+
+@{
+    ViewData["Title"] = "Add Meal Record";
+}
+
+<div class="container mt-4">
+    <h2>Add Meal Record</h2>
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger">@ViewBag.Error</div>
+    }
+
+    <form method="post" action="/Meals/Create">
+        <div class="mb-3">
+            <label class="form-label">Student Name</label>
+            <input name="StudentName" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Admission Number</label>
+            <input name="AdmissionNumber" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Meal Type</label>
+            <select name="MealType" class="form-select">
+                <option value="Breakfast">Breakfast</option>
+                <option value="Lunch">Lunch</option>
+                <option value="Supper">Supper</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Date</label>
+            <input name="Date" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Status</label>
+            <select name="Status" class="form-select">
+                <option value="Served">Served</option>
+                <option value="Denied">Denied</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success">Save</button>
+        <a href="/Meals" class="btn btn-secondary">Back</a>
+    </form>
+</div>

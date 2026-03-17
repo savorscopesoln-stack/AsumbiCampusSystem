@@ -1,0 +1,50 @@
+@model AsumbiCampusSystem.Models.AttendanceRecord
+
+@{
+    ViewData["Title"] = "Edit Attendance";
+}
+
+<div class="container mt-4">
+    <h2>Edit Attendance</h2>
+
+    <form method="post" action="/Attendance/Edit">
+        <input type="hidden" name="Id" value="@Model.Id" />
+
+        <div class="mb-3">
+            <label class="form-label">Student Name</label>
+            <input name="StudentName" class="form-control" value="@Model.StudentName" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Admission Number</label>
+            <input name="AdmissionNumber" class="form-control" value="@Model.AdmissionNumber" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Class Name</label>
+            <input name="ClassName" class="form-control" value="@Model.ClassName" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Date</label>
+            <input name="Date" class="form-control" value="@Model.Date" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Status</label>
+            <select name="Status" class="form-select">
+                <option value="Present" selected="@(Model.Status == "Present")">Present</option>
+                <option value="Late" selected="@(Model.Status == "Late")">Late</option>
+                <option value="Absent" selected="@(Model.Status == "Absent")">Absent</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Recorded By</label>
+            <input name="RecordedBy" class="form-control" value="@Model.RecordedBy" />
+        </div>
+
+        <button type="submit" class="btn btn-success">Save Changes</button>
+        <a href="/Attendance" class="btn btn-secondary">Back</a>
+    </form>
+</div>

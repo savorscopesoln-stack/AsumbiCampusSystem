@@ -1,0 +1,45 @@
+@model List<AsumbiCampusSystem.Models.Student>
+
+@{
+    ViewData["Title"] = "Students";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-3">Students</h2>
+
+    <a href="/Students/Create" class="btn btn-primary mb-3">Add Student</a>
+
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Admission</th>
+                <th>Class</th>
+                <th>Parent Phone</th>
+                <th>RFID</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var student in Model)
+        {
+            <tr>
+                <td>@student.Id</td>
+                <td>@student.FullName</td>
+                <td>@student.AdmissionNumber</td>
+                <td>@student.ClassName</td>
+                <td>@student.ParentPhone</td>
+                <td>@student.RFID_UID</td>
+                <td>@student.Status</td>
+                <td>
+                    <a href="/Students/Details/@student.Id" class="btn btn-info btn-sm">Details</a>
+                    <a href="/Students/Edit/@student.Id" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="/Students/Delete/@student.Id" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

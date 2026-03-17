@@ -1,0 +1,64 @@
+@model AsumbiCampusSystem.Models.LeaveRecord
+
+@{
+    ViewData["Title"] = "Add Leave Record";
+}
+
+<div class="container mt-4">
+    <h2>Add Leave Record</h2>
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger">@ViewBag.Error</div>
+    }
+
+    <form method="post" action="/Leave/Create">
+        <div class="mb-3">
+            <label class="form-label">Student Name</label>
+            <input name="StudentName" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Admission Number</label>
+            <input name="AdmissionNumber" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Reason</label>
+            <input name="Reason" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Time Out</label>
+            <input name="TimeOut" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Expected Return</label>
+            <input name="ExpectedReturn" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Actual Return</label>
+            <input name="ActualReturn" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Status</label>
+            <select name="Status" class="form-select">
+                <option value="Pending">Pending</option>
+                <option value="Approved">Approved</option>
+                <option value="Closed">Closed</option>
+                <option value="Overdue">Overdue</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Approved By</label>
+            <input name="ApprovedBy" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-success">Save</button>
+        <a href="/Leave" class="btn btn-secondary">Back</a>
+    </form>
+</div>

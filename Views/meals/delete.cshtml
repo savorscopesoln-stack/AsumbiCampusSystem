@@ -1,0 +1,20 @@
+@model AsumbiCampusSystem.Models.MealRecord
+
+@{
+    ViewData["Title"] = "Meal Details";
+}
+
+<div class="container mt-4">
+    <h2>Meal Details</h2>
+
+    <div class="card p-4">
+        <p><strong>Student Name:</strong> @Model.StudentName</p>
+        <p><strong>Admission Number:</strong> @Model.AdmissionNumber</p>
+        <p><strong>Meal Type:</strong> @Model.MealType</p>
+        <p><strong>Date:</strong> @Model.Date</p>
+        <p><strong>Status:</strong> @Model.Status</p>
+    </div>
+
+    <a href="/Meals/Edit/@Model.Id" class="btn btn-warning mt-3">Edit</a>
+    <a href="/Meals" class="btn btn-secondary mt-3">Back</a>
+</div>

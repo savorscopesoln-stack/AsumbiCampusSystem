@@ -1,0 +1,45 @@
+@model List<AsumbiCampusSystem.Models.StaffMember>
+
+@{
+    ViewData["Title"] = "Staff";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-3">Staff</h2>
+
+    <a href="/Staff/Create" class="btn btn-primary mb-3">Add Staff</a>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Staff Number</th>
+                <th>Department</th>
+                <th>Phone</th>
+                <th>RFID</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var member in Model)
+        {
+            <tr>
+                <td>@member.Id</td>
+                <td>@member.FullName</td>
+                <td>@member.StaffNumber</td>
+                <td>@member.Department</td>
+                <td>@member.PhoneNumber</td>
+                <td>@member.RFID_UID</td>
+                <td>@member.Status</td>
+                <td>
+                    <a href="/Staff/Details/@member.Id" class="btn btn-info btn-sm">Details</a>
+                    <a href="/Staff/Edit/@member.Id" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="/Staff/Delete/@member.Id" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

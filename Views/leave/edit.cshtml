@@ -1,0 +1,61 @@
+@model AsumbiCampusSystem.Models.LeaveRecord
+
+@{
+    ViewData["Title"] = "Edit Leave Record";
+}
+
+<div class="container mt-4">
+    <h2>Edit Leave Record</h2>
+
+    <form method="post" action="/Leave/Edit">
+        <input type="hidden" name="Id" value="@Model.Id" />
+
+        <div class="mb-3">
+            <label class="form-label">Student Name</label>
+            <input name="StudentName" class="form-control" value="@Model.StudentName" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Admission Number</label>
+            <input name="AdmissionNumber" class="form-control" value="@Model.AdmissionNumber" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Reason</label>
+            <input name="Reason" class="form-control" value="@Model.Reason" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Time Out</label>
+            <input name="TimeOut" class="form-control" value="@Model.TimeOut" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Expected Return</label>
+            <input name="ExpectedReturn" class="form-control" value="@Model.ExpectedReturn" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Actual Return</label>
+            <input name="ActualReturn" class="form-control" value="@Model.ActualReturn" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Status</label>
+            <select name="Status" class="form-select">
+                <option value="Pending" selected="@(Model.Status == "Pending")">Pending</option>
+                <option value="Approved" selected="@(Model.Status == "Approved")">Approved</option>
+                <option value="Closed" selected="@(Model.Status == "Closed")">Closed</option>
+                <option value="Overdue" selected="@(Model.Status == "Overdue")">Overdue</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Approved By</label>
+            <input name="ApprovedBy" class="form-control" value="@Model.ApprovedBy" />
+        </div>
+
+        <button type="submit" class="btn btn-success">Save Changes</button>
+        <a href="/Leave" class="btn btn-secondary">Back</a>
+    </form>
+</div>

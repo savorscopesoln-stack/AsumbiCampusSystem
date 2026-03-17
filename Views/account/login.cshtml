@@ -1,0 +1,47 @@
+@model AsumbiCampusSystem.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card p-4">
+                <h2 class="mb-3 text-center">System Login</h2>
+                <p class="text-muted text-center">Login according to your rank</p>
+
+                @if (ViewBag.Error != null)
+                {
+                    <div class="alert alert-danger">@ViewBag.Error</div>
+                }
+
+                <form method="post" action="/Account/Login">
+                    <div class="mb-3">
+                        <label class="form-label">Username</label>
+                        <input name="Username" class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input name="Password" type="password" class="form-control" />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                </form>
+
+                <hr />
+
+                <div>
+                    <h6>Demo Accounts</h6>
+                    <small class="d-block">Master Admin: <b>masteradmin</b> / 1234</small>
+                    <small class="d-block">Deputy Admin: <b>deputyadmin</b> / 1234</small>
+                    <small class="d-block">Class Teacher: <b>classteacher</b> / 1234</small>
+                    <small class="d-block">Teacher On Duty: <b>tod</b> / 1234</small>
+                    <small class="d-block">Gate Staff: <b>gatestaff</b> / 1234</small>
+                    <small class="d-block">Kitchen Staff: <b>kitchenstaff</b> / 1234</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+@model List<AsumbiCampusSystem.Models.LeaveRecord>
+
+@{
+    ViewData["Title"] = "Leave Records";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-3">Leave Records</h2>
+
+    <a href="/Leave/Create" class="btn btn-primary mb-3">Add Leave Record</a>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Student Name</th>
+                <th>Admission</th>
+                <th>Reason</th>
+                <th>Time Out</th>
+                <th>Expected Return</th>
+                <th>Status</th>
+                <th>Approved By</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var leave in Model)
+        {
+            <tr>
+                <td>@leave.Id</td>
+                <td>@leave.StudentName</td>
+                <td>@leave.AdmissionNumber</td>
+                <td>@leave.Reason</td>
+                <td>@leave.TimeOut</td>
+                <td>@leave.ExpectedReturn</td>
+                <td>@leave.Status</td>
+                <td>@leave.ApprovedBy</td>
+                <td>
+                    <a href="/Leave/Details/@leave.Id" class="btn btn-info btn-sm">Details</a>
+                    <a href="/Leave/Edit/@leave.Id" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="/Leave/Delete/@leave.Id" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

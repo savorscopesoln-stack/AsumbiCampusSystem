@@ -1,0 +1,23 @@
+@model AsumbiCampusSystem.Models.LeaveRecord
+
+@{
+    ViewData["Title"] = "Leave Details";
+}
+
+<div class="container mt-4">
+    <h2>Leave Details</h2>
+
+    <div class="card p-4">
+        <p><strong>Student Name:</strong> @Model.StudentName</p>
+        <p><strong>Admission Number:</strong> @Model.AdmissionNumber</p>
+        <p><strong>Reason:</strong> @Model.Reason</p>
+        <p><strong>Time Out:</strong> @Model.TimeOut</p>
+        <p><strong>Expected Return:</strong> @Model.ExpectedReturn</p>
+        <p><strong>Actual Return:</strong> @Model.ActualReturn</p>
+        <p><strong>Status:</strong> @Model.Status</p>
+        <p><strong>Approved By:</strong> @Model.ApprovedBy</p>
+    </div>
+
+    <a href="/Leave/Edit/@Model.Id" class="btn btn-warning mt-3">Edit</a>
+    <a href="/Leave" class="btn btn-secondary mt-3">Back</a>
+</div>

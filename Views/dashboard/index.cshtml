@@ -1,0 +1,71 @@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container-fluid py-4">
+    <div class="row g-4 mb-4">
+
+        <!-- Card Template -->
+        <div class="col-md-6 col-xl-4">
+            <div class="card shadow-sm border-0 rounded-3 p-4 h-100 text-center animate__animated animate__fadeInUp" style="background: linear-gradient(135deg, #6a11cb, #2575fc); color: white; transition: transform 0.3s;">
+                <p class="text-light mb-2 fw-semibold">Total Students</p>
+                <h2 class="fw-bold mb-0">@ViewBag.TotalStudents</h2>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-4">
+            <div class="card shadow-sm border-0 rounded-3 p-4 h-100 text-center animate__animated animate__fadeInUp animate__delay-1s" style="background: linear-gradient(135deg, #ff416c, #ff4b2b); color: white; transition: transform 0.3s;">
+                <p class="text-light mb-2 fw-semibold">Total Staff</p>
+                <h2 class="fw-bold mb-0">@ViewBag.TotalStaff</h2>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-4">
+            <div class="card shadow-sm border-0 rounded-3 p-4 h-100 text-center animate__animated animate__fadeInUp animate__delay-2s" style="background: linear-gradient(135deg, #11998e, #38ef7d); color: white; transition: transform 0.3s;">
+                <p class="text-light mb-2 fw-semibold">Active Leaves</p>
+                <h2 class="fw-bold mb-0">@ViewBag.ActiveLeaves</h2>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-4">
+            <div class="card shadow-sm border-0 rounded-3 p-4 h-100 text-center animate__animated animate__fadeInUp animate__delay-3s" style="background: linear-gradient(135deg, #fc4a1a, #f7b733); color: white; transition: transform 0.3s;">
+                <p class="text-light mb-2 fw-semibold">Overdue Returns</p>
+                <h2 class="fw-bold mb-0">@ViewBag.OverdueReturns</h2>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-4">
+            <div class="card shadow-sm border-0 rounded-3 p-4 h-100 text-center animate__animated animate__fadeInUp animate__delay-4s" style="background: linear-gradient(135deg, #4568dc, #b06ab3); color: white; transition: transform 0.3s;">
+                <p class="text-light mb-2 fw-semibold">Meals Served Today</p>
+                <h2 class="fw-bold mb-0">@ViewBag.MealsServedToday</h2>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-4">
+            <div class="card shadow-sm border-0 rounded-3 p-4 h-100 text-center animate__animated animate__fadeInUp animate__delay-5s" style="background: linear-gradient(135deg, #ff512f, #dd2476); color: white; transition: transform 0.3s;">
+                <p class="text-light mb-2 fw-semibold">Attendance Today</p>
+                <h2 class="fw-bold mb-0">@ViewBag.AttendanceToday</h2>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Include Animate.css for animations -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+<style>
+    .card:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    }
+
+    p {
+        font-size: 0.95rem;
+        letter-spacing: 0.5px;
+    }
+
+    h2 {
+        font-size: 2.2rem;
+    }
+</style>

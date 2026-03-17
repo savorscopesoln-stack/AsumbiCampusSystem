@@ -1,0 +1,43 @@
+@model List<AsumbiCampusSystem.Models.MealRecord>
+
+@{
+    ViewData["Title"] = "Meals";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-3">Meal Records</h2>
+
+    <a href="/Meals/Create" class="btn btn-primary mb-3">Add Meal Record</a>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Student Name</th>
+                <th>Admission</th>
+                <th>Meal Type</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var meal in Model)
+        {
+            <tr>
+                <td>@meal.Id</td>
+                <td>@meal.StudentName</td>
+                <td>@meal.AdmissionNumber</td>
+                <td>@meal.MealType</td>
+                <td>@meal.Date</td>
+                <td>@meal.Status</td>
+                <td>
+                    <a href="/Meals/Details/@meal.Id" class="btn btn-info btn-sm">Details</a>
+                    <a href="/Meals/Edit/@meal.Id" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="/Meals/Delete/@meal.Id" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
