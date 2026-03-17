@@ -1,35 +1,68 @@
-/* Homepage Styles */
+/* Full Landing Page Styles - Asumbi Colors */
 body.home-page {
-    background-color: #f0f4f8; /* light grey background */
+    margin: 0;
+    padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #ffffff; /* default page background */
 }
 
+/* Hero Section */
 .hero-section {
-    background-color: #0d6efd; /* Bootstrap primary blue */
-    background-image: linear-gradient(to right, #0d6efd, #6c757d);
-    padding: 100px 0;
-    border-radius: 12px;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #800000, #28a745); /* maroon to green */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 100px 15px;
 }
 
 .hero-section h1,
 .hero-section p {
+    color: #ffffff; /* white text */
+}
+
+/* Buttons */
+.btn-maroon {
+    background-color: #800000;
+    color: #ffffff;
+    border: none;
+}
+
+.btn-maroon:hover {
+    background-color: #dc3545; /* red hover */
     color: #ffffff;
 }
 
-.card {
+.btn-white {
     background-color: #ffffff;
-    border-radius: 12px;
-    transition: transform 0.3s;
+    color: #800000;
+    border: 2px solid #800000;
 }
 
-.card:hover {
+.btn-white:hover {
+    background-color: #800000;
+    color: #ffffff;
+}
+
+/* Features Section */
+.features-section .card {
+    border-radius: 12px;
+    transition: transform 0.3s;
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.features-section .card:hover {
     transform: translateY(-5px);
 }
 
-.navbar {
-    border-bottom: 2px solid #0a58ca;
+.text-maroon {
+    color: #800000;
 }
 
-footer {
-    background-color: #212529;
+/* Footer */
+.footer-section {
+    background-color: #000000;
+    color: #ffffff;
 }
