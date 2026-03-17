@@ -1,22 +1,35 @@
-html {
-  font-size: 14px;
+/* Homepage Styles */
+body.home-page {
+    background-color: #f0f4f8; /* light grey background */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+.hero-section {
+    background-color: #0d6efd; /* Bootstrap primary blue */
+    background-image: linear-gradient(to right, #0d6efd, #6c757d);
+    padding: 100px 0;
+    border-radius: 12px;
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+.hero-section h1,
+.hero-section p {
+    color: #ffffff;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+.card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    transition: transform 0.3s;
 }
 
-body {
-  margin-bottom: 60px;
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.navbar {
+    border-bottom: 2px solid #0a58ca;
+}
+
+footer {
+    background-color: #212529;
 }
