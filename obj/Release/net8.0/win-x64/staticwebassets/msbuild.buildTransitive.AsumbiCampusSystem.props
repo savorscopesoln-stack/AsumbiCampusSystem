@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\AsumbiCampusSystem.props" />
-</Project>
