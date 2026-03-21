@@ -1,0 +1,52 @@
+@{
+    ViewData["Title"] = "Add Marks";
+    var students = ViewBag.Students as List<AsumbiCampusSystem.Models.Student>;
+    var courses = ViewBag.Courses as List<AsumbiCampusSystem.Models.Course>;
+    var topics = ViewBag.Topics as List<AsumbiCampusSystem.Models.LearningArea>;
+}
+
+<h2>Record CAT Marks</h2>
+
+<form method="post">
+    <div class="mb-3">
+        <label>Student</label>
+        <select name="studentId" class="form-control" required>
+            @foreach (var s in students)
+            {
+                <option value="@s.Id">@s.FullName</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>Course</label>
+        <select name="courseId" class="form-control" required>
+            @foreach (var c in courses)
+            {
+                <option value="@c.Id">@c.CourseName</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>Topic</label>
+        <select name="learningAreaId" class="form-control" required>
+            @foreach (var t in topics)
+            {
+                <option value="@t.Id">@t.TopicName</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>CAT Name</label>
+        <input type="text" name="catName" class="form-control" required />
+    </div>
+
+    <div class="mb-3">
+        <label>Score</label>
+        <input type="number" name="score" class="form-control" required />
+    </div>
+
+    <button class="btn btn-primary">Save</button>
+</form>

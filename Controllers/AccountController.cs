@@ -1,69 +1,92 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using AsumbiCampusSystem.Models;
+using AsumbiCampusSystem.Data;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
 
 namespace AsumbiCampusSystem.Controllers
 {
     public class AccountController : Controller
     {
-        private static readonly List<(string Username, string Password, string Role)> users = new()
-        {
-            ("masteradmin", "1234", "Master Admin"),
-            ("deputyadmin", "1234", "Deputy Admin"),
-            ("classteacher", "1234", "Class Teacher"),
-            ("tod", "1234", "Teacher On Duty"),
-            ("gatestaff", "1234", "Gate Staff"),
-            ("kitchenstaff", "1234", "Kitchen Staff")
-        };
+        private readonly AppDbContextNew _context;
 
-        [HttpGet]
-        public IActionResult Login()
+        public AccountController(AppDbContextNew context)
         {
-            return View();
+            _context = context;
         }
 
-        [HttpPost]
-        public IActionResult Login(LoginViewModel model)
-        {
-            var user = users.FirstOrDefault(u =>
-                u.Username.Equals(model.Username, StringComparison.OrdinalIgnoreCase) &&
-                u.Password == model.Password);
+        // GET: /Account/Login
+        [HttpGet]
+        public IActionResult Login() => View();
 
-            if (string.IsNullOrWhiteSpace(user.Username))
+        // POST: /Account/Login
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var user = await _context.Users
+                .FirstOrDefaultAsync(u =>
+                    u.Username.ToLower() == model.Username.ToLower() &&
+                    u.Password == model.Password);
+
+            if (user == null)
             {
                 ViewBag.Error = "Invalid username or password.";
                 return View(model);
             }
 
+            // ✅ Set session
             HttpContext.Session.SetString("Username", user.Username);
             HttpContext.Session.SetString("Role", user.Role);
 
-            if (user.Role == "Master Admin" || user.Role == "Deputy Admin")
-                return RedirectToAction("Index", "Dashboard");
+            if (user.Role == "Student" && user.StudentId.HasValue)
+                HttpContext.Session.SetInt32("StudentId", user.StudentId.Value);
 
-            if (user.Role == "Class Teacher")
-                return RedirectToAction("Index", "Attendance");
+            if (user.Role == "Kitchen Staff" || user.Role == "Gate Staff")
+                HttpContext.Session.SetInt32("StaffId", user.Id);
 
-            if (user.Role == "Teacher On Duty")
-                return RedirectToAction("Index", "Leave");
+            // ✅ Cookie authentication
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.Name, user.Username),
+                new Claim(ClaimTypes.Role, user.Role),
+                new Claim("StaffId", user.Id.ToString()) // for kitchen/gate staff
+            };
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principal = new ClaimsPrincipal(identity);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-            if (user.Role == "Kitchen Staff")
-                return RedirectToAction("Index", "Meals");
-
-            if (user.Role == "Gate Staff")
-                return RedirectToAction("Index", "Home");
-
-            return RedirectToAction("Index", "Home");
+            // -------------------------
+            // Redirect based on role
+            // -------------------------
+            return user.Role switch
+            {
+                "Student" when user.StudentId.HasValue => RedirectToAction("Index", "Result", new { studentId = user.StudentId }),
+                "Teacher" => RedirectToAction("Create", "Result"),
+                "Class Teacher" => RedirectToAction("Create", "Result"),
+                "Master Admin" => RedirectToAction("Index", "Dashboard"),
+                "Deputy Admin" => RedirectToAction("Index", "Dashboard"),
+                "Teacher On Duty" => RedirectToAction("Index", "Leave"),
+                "Kitchen Staff" => RedirectToAction("Scan", "KitchenStaff"), // ✅ goes to Scan page
+                "Gate Staff" => RedirectToAction("Scan", "GateStaff"),      // ✅ Gate Staff page
+                _ => RedirectToAction("Index", "Home")
+            };
         }
 
-        public IActionResult Logout()
+        // GET: /Account/Logout
+        public async Task<IActionResult> Logout()
         {
             HttpContext.Session.Clear();
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login");
         }
 
-        public IActionResult AccessDenied()
-        {
-            return View();
-        }
+        // GET: /Account/AccessDenied
+        public IActionResult AccessDenied() => View();
     }
 }

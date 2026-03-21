@@ -1,0 +1,5 @@
+f:\AsumbiCampusSystem\AsumbiCampusDB\bin\Debug\AsumbiCampusDB.dacpac
+f:\AsumbiCampusSystem\AsumbiCampusDB\obj\Debug\Model.xml
+f:\AsumbiCampusSystem\AsumbiCampusDB\obj\Debug\refactor.xml
+f:\AsumbiCampusSystem\AsumbiCampusDB\obj\Debug\postdeploy.sql
+f:\AsumbiCampusSystem\AsumbiCampusDB\obj\Debug\predeploy.sql

@@ -7,7 +7,8 @@
 <div class="container mt-4">
     <h2>Edit Leave Record</h2>
 
-    <form method="post" action="/Leave/Edit">
+    <form asp-action="Edit" method="post">
+        @Html.AntiForgeryToken()
         <input type="hidden" name="Id" value="@Model.Id" />
 
         <div class="mb-3">
@@ -27,26 +28,40 @@
 
         <div class="mb-3">
             <label class="form-label">Time Out</label>
-            <input name="TimeOut" class="form-control" value="@Model.TimeOut" />
+            <input name="TimeOut" class="form-control" type="datetime-local"
+                   value="@Model.TimeOut.ToString("yyyy-MM-ddTHH:mm")" />
         </div>
 
         <div class="mb-3">
             <label class="form-label">Expected Return</label>
-            <input name="ExpectedReturn" class="form-control" value="@Model.ExpectedReturn" />
+            <input name="ExpectedReturn" class="form-control" type="datetime-local"
+                   value="@Model.ExpectedReturn.ToString("yyyy-MM-ddTHH:mm")" />
         </div>
 
         <div class="mb-3">
             <label class="form-label">Actual Return</label>
-            <input name="ActualReturn" class="form-control" value="@Model.ActualReturn" />
+            <input name="ActualReturn" class="form-control" type="datetime-local"
+                   value="@Model.ActualReturn?.ToString("yyyy-MM-ddTHH:mm")" />
         </div>
 
         <div class="mb-3">
             <label class="form-label">Status</label>
             <select name="Status" class="form-select">
-                <option value="Pending" selected="@(Model.Status == "Pending")">Pending</option>
-                <option value="Approved" selected="@(Model.Status == "Approved")">Approved</option>
-                <option value="Closed" selected="@(Model.Status == "Closed")">Closed</option>
-                <option value="Overdue" selected="@(Model.Status == "Overdue")">Overdue</option>
+                @if(Model.Status == "Pending")
+                { <option value="Pending" selected>Pending</option> }
+                else { <option value="Pending">Pending</option> }
+
+                @if(Model.Status == "Approved")
+                { <option value="Approved" selected>Approved</option> }
+                else { <option value="Approved">Approved</option> }
+
+                @if(Model.Status == "Closed")
+                { <option value="Closed" selected>Closed</option> }
+                else { <option value="Closed">Closed</option> }
+
+                @if(Model.Status == "Overdue")
+                { <option value="Overdue" selected>Overdue</option> }
+                else { <option value="Overdue">Overdue</option> }
             </select>
         </div>
 

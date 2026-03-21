@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Mac\\Documents\\Arduino\\libraries\\TFT_eSPI\\ASUMBI SYS\\AsumbiCampusSystem\\AsumbiCampusSystem.csproj": {}
+    "C:\\Users\\Mac\\Desktop\\AsumbiCampusSystem\\AsumbiCampusSystem.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Mac\\Documents\\Arduino\\libraries\\TFT_eSPI\\ASUMBI SYS\\AsumbiCampusSystem\\AsumbiCampusSystem.csproj": {
+    "C:\\Users\\Mac\\Desktop\\AsumbiCampusSystem\\AsumbiCampusSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Mac\\Documents\\Arduino\\libraries\\TFT_eSPI\\ASUMBI SYS\\AsumbiCampusSystem\\AsumbiCampusSystem.csproj",
+        "projectUniqueName": "C:\\Users\\Mac\\Desktop\\AsumbiCampusSystem\\AsumbiCampusSystem.csproj",
         "projectName": "AsumbiCampusSystem",
-        "projectPath": "C:\\Users\\Mac\\Documents\\Arduino\\libraries\\TFT_eSPI\\ASUMBI SYS\\AsumbiCampusSystem\\AsumbiCampusSystem.csproj",
+        "projectPath": "C:\\Users\\Mac\\Desktop\\AsumbiCampusSystem\\AsumbiCampusSystem.csproj",
         "packagesPath": "C:\\Users\\Mac\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Mac\\Documents\\Arduino\\libraries\\TFT_eSPI\\ASUMBI SYS\\AsumbiCampusSystem\\obj\\",
+        "outputPath": "C:\\Users\\Mac\\Desktop\\AsumbiCampusSystem\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Mac\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -42,6 +42,44 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "ClosedXML": {
+              "target": "Package",
+              "version": "[0.105.0, )"
+            },
+            "EPPlus": {
+              "target": "Package",
+              "version": "[6.3.1, )"
+            },
+            "Microsoft.Data.SqlClient": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Rotativa.AspNetCore": {
+              "target": "Package",
+              "version": "[1.4.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

@@ -7,35 +7,38 @@
 <div class="container mt-4">
     <h2>Add Attendance</h2>
 
-    @if (ViewBag.Error != null)
-    {
-        <div class="alert alert-danger">@ViewBag.Error</div>
-    }
+    <!-- ✅ SHOW VALIDATION ERRORS -->
+    <div class="text-danger">
+        @Html.ValidationSummary(true)
+    </div>
 
-    <form method="post" action="/Attendance/Create">
+    <form asp-action="Create" method="post">
+        @Html.AntiForgeryToken()
+
         <div class="mb-3">
             <label class="form-label">Student Name</label>
-            <input name="StudentName" class="form-control" />
+            <input asp-for="StudentName" class="form-control" />
         </div>
 
         <div class="mb-3">
             <label class="form-label">Admission Number</label>
-            <input name="AdmissionNumber" class="form-control" />
+            <input asp-for="AdmissionNumber" class="form-control" />
         </div>
 
         <div class="mb-3">
             <label class="form-label">Class Name</label>
-            <input name="ClassName" class="form-control" />
+            <input asp-for="ClassName" class="form-control" />
         </div>
 
         <div class="mb-3">
             <label class="form-label">Date</label>
-            <input name="Date" class="form-control" />
+            <input asp-for="Date" type="datetime-local" class="form-control" />
         </div>
 
         <div class="mb-3">
             <label class="form-label">Status</label>
-            <select name="Status" class="form-select">
+            <select asp-for="Status" class="form-select">
+                <option value="">-- Select Status --</option>
                 <option value="Present">Present</option>
                 <option value="Late">Late</option>
                 <option value="Absent">Absent</option>
@@ -44,10 +47,10 @@
 
         <div class="mb-3">
             <label class="form-label">Recorded By</label>
-            <input name="RecordedBy" class="form-control" />
+            <input asp-for="RecordedBy" class="form-control" />
         </div>
 
         <button type="submit" class="btn btn-success">Save</button>
-        <a href="/Attendance" class="btn btn-secondary">Back</a>
+        <a asp-controller="Attendance" asp-action="Index" class="btn btn-secondary">Back</a>
     </form>
 </div>

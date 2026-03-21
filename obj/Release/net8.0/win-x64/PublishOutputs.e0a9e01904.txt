@@ -1,0 +1,4 @@
+C:\Users\Mac\Documents\Arduino\libraries\TFT_eSPI\ASUMBI SYS\AsumbiCampusSystem\bin\Release\net8.0\win-x64\publish\appsettings.Development.json
+C:\Users\Mac\Documents\Arduino\libraries\TFT_eSPI\ASUMBI SYS\AsumbiCampusSystem\bin\Release\net8.0\win-x64\publish\appsettings.json
+C:\Users\Mac\Documents\Arduino\libraries\TFT_eSPI\ASUMBI SYS\AsumbiCampusSystem\bin\Release\net8.0\win-x64\publish\AsumbiCampusSystem.pdb
+C:\Users\Mac\Documents\Arduino\libraries\TFT_eSPI\ASUMBI SYS\AsumbiCampusSystem\bin\Release\net8.0\win-x64\publish\AsumbiCampusSystem.exe

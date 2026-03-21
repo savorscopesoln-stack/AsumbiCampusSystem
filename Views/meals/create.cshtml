@@ -1,51 +1,34 @@
-@model AsumbiCampusSystem.Models.MealRecord
-
+@model AsumbiCampusSystem.Models.MealCard
 @{
-    ViewData["Title"] = "Add Meal Record";
+    ViewData["Title"] = "Create Meal Card";
 }
 
-<div class="container mt-4">
-    <h2>Add Meal Record</h2>
+<h2>Create Meal Card</h2>
 
-    @if (ViewBag.Error != null)
-    {
-        <div class="alert alert-danger">@ViewBag.Error</div>
-    }
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label asp-for="StudentId" class="form-label">Student</label>
+        <select asp-for="StudentId" class="form-select" asp-items="@(new SelectList(ViewBag.Students, "Id", "FullName"))">
+            <option value="">-- Select Student --</option>
+        </select>
+        <span asp-validation-for="StudentId" class="text-danger"></span>
+    </div>
 
-    <form method="post" action="/Meals/Create">
-        <div class="mb-3">
-            <label class="form-label">Student Name</label>
-            <input name="StudentName" class="form-control" />
-        </div>
+    <div class="mb-3">
+        <label class="form-label">Valid Days</label>
+        <input type="number" name="ValidDays" class="form-control" value="30" />
+    </div>
 
-        <div class="mb-3">
-            <label class="form-label">Admission Number</label>
-            <input name="AdmissionNumber" class="form-control" />
-        </div>
+    <div class="mb-3">
+        <label class="form-label">Issued By</label>
+        <input asp-for="IssuedBy" class="form-control" />
+    </div>
 
-        <div class="mb-3">
-            <label class="form-label">Meal Type</label>
-            <select name="MealType" class="form-select">
-                <option value="Breakfast">Breakfast</option>
-                <option value="Lunch">Lunch</option>
-                <option value="Supper">Supper</option>
-            </select>
-        </div>
+    <div class="mb-3">
+        <label class="form-label">Remarks</label>
+        <input asp-for="Remarks" class="form-control" />
+    </div>
 
-        <div class="mb-3">
-            <label class="form-label">Date</label>
-            <input name="Date" class="form-control" />
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Status</label>
-            <select name="Status" class="form-select">
-                <option value="Served">Served</option>
-                <option value="Denied">Denied</option>
-            </select>
-        </div>
-
-        <button type="submit" class="btn btn-success">Save</button>
-        <a href="/Meals" class="btn btn-secondary">Back</a>
-    </form>
-</div>
+    <button type="submit" class="btn btn-success">Create</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

@@ -1,0 +1,43 @@
+@model List<AsumbiCampusSystem.Models.StaffMember>
+@{
+    Layout = null;
+}
+
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>All Staff - Asumbi Smart Campus</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f7f7f7; }
+        h2 { text-align: center; color: #800000; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: separate; border-spacing: 0 8px; }
+        th { background-color: #800000; color: white; padding: 10px; border-radius: 8px; }
+        td { padding: 10px; background: #ffffff; border-radius: 8px; }
+        tr td:first-child { font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h2>All Staff - Asumbi Smart Campus</h2>
+    <table>
+        <tr>
+            <th>#</th>
+            <th>Full Name</th>
+            <th>Staff Number</th>
+            <th>Department</th>
+            <th>Phone Number</th>
+            <th>Status</th>
+        </tr>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <tr>
+                <td>@(i+1)</td>
+                <td>@Model[i].FullName</td>
+                <td>@Model[i].StaffNumber</td>
+                <td>@Model[i].Department</td>
+                <td>@Model[i].PhoneNumber</td>
+                <td>@Model[i].Status</td>
+            </tr>
+        }
+    </table>
+</body>
+</html>

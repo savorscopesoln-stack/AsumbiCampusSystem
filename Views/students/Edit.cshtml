@@ -7,49 +7,51 @@
 <div class="container mt-4">
     <h2>Edit Student</h2>
 
-    @if (ViewBag.Error != null)
-    {
-        <div class="alert alert-danger">@ViewBag.Error</div>
-    }
+    <!-- Validation errors -->
+    <div class="text-danger">
+        @Html.ValidationSummary(true)
+    </div>
 
-    <form method="post" action="/Students/Edit">
-        <input type="hidden" name="Id" value="@Model.Id" />
+    <form asp-action="Edit" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
 
         <div class="mb-3">
             <label class="form-label">Full Name</label>
-            <input name="FullName" class="form-control" value="@Model.FullName" />
+            <input asp-for="FullName" class="form-control" />
         </div>
 
         <div class="mb-3">
             <label class="form-label">Admission Number</label>
-            <input name="AdmissionNumber" class="form-control" value="@Model.AdmissionNumber" />
+            <input asp-for="AdmissionNumber" class="form-control" />
         </div>
 
         <div class="mb-3">
             <label class="form-label">Class Name</label>
-            <input name="ClassName" class="form-control" value="@Model.ClassName" />
+            <input asp-for="ClassName" class="form-control" />
         </div>
 
         <div class="mb-3">
             <label class="form-label">Parent Phone</label>
-            <input name="ParentPhone" class="form-control" value="@Model.ParentPhone" />
+            <input asp-for="ParentPhone" class="form-control" />
         </div>
 
         <div class="mb-3">
             <label class="form-label">RFID UID</label>
-            <input name="RFID_UID" class="form-control" value="@Model.RFID_UID" />
+            <input asp-for="RFID_UID" class="form-control" />
         </div>
 
         <div class="mb-3">
             <label class="form-label">Status</label>
-            <select name="Status" class="form-select">
-                <option value="Active" selected="@(Model.Status == "Active")">Active</option>
-                <option value="Inactive" selected="@(Model.Status == "Inactive")">Inactive</option>
-                <option value="Suspended" selected="@(Model.Status == "Suspended")">Suspended</option>
+            <select asp-for="Status" class="form-select">
+                <option value="">-- Select Status --</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+                <option value="Suspended">Suspended</option>
             </select>
         </div>
 
         <button type="submit" class="btn btn-success">Save Changes</button>
-        <a href="/Students" class="btn btn-secondary">Back</a>
+        <a asp-controller="Students" asp-action="Index" class="btn btn-secondary">Back</a>
     </form>
 </div>

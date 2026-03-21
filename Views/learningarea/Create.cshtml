@@ -1,0 +1,26 @@
+@{
+    ViewData["Title"] = "Add Topic";
+    var courseName = ViewBag.CourseName as string;
+    var courseId = ViewBag.CourseId;
+}
+
+<h2>Add Topic for @courseName</h2>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<form asp-action="Create" method="post">
+    <input type="hidden" name="courseId" value="@courseId" />
+    <div class="mb-3">
+        <label class="form-label">Topic Name</label>
+        <input type="text" name="topicName" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea name="description" class="form-control"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Topic</button>
+    <a class="btn btn-secondary" href="@Url.Action("Index", new { courseId })">Cancel</a>
+</form>

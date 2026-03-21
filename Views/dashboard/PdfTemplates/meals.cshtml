@@ -1,0 +1,44 @@
+@model List<AsumbiCampusSystem.Models.MealRecord>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Meals Report - Asumbi Smart Campus</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f7f7f7; }
+        h2 { text-align: center; color: #800000; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: separate; border-spacing: 0 8px; }
+        th { background-color: #800000; color: white; padding: 10px; border-radius: 8px; }
+        td { padding: 10px; background: #ffffff; border-radius: 8px; }
+        tr td:first-child { font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h2>Meals Report - Asumbi Smart Campus</h2>
+    <table>
+        <tr>
+            <th>#</th>
+            <th>Student Name</th>
+            <th>Admission Number</th>
+            <th>Meal Type</th>
+            <th>Date</th>
+            <th>Status</th>
+        </tr>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <tr>
+                <td>@(i + 1)</td>
+                <td>@Model[i].StudentName</td>
+                <td>@Model[i].AdmissionNumber</td>
+                <td>@Model[i].MealType</td>
+                <td>@(Model[i].Date.ToString("yyyy-MM-dd") ?? "-")</td>
+                <td>@Model[i].Status</td>
+            </tr>
+        }
+    </table>
+</body>
+</html>

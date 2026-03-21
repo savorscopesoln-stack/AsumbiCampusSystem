@@ -1,0 +1,31 @@
+@model AsumbiCampusSystem.Models.User
+
+@{
+    ViewData["Title"] = "User Details";
+}
+
+<div class="container mt-4">
+    <h2>User Details</h2>
+
+    <table class="table table-bordered">
+        <tr>
+            <th>ID</th>
+            <td>@Model.Id</td>
+        </tr>
+        <tr>
+            <th>Username</th>
+            <td>@Model.Username</td>
+        </tr>
+        <tr>
+            <th>Role</th>
+            <td>@Model.Role</td>
+        </tr>
+        <tr>
+            <th>Student ID</th>
+            <td>@Model.StudentId</td>
+        </tr>
+    </table>
+
+    <a href="/Users/Edit/@Model.Id" class="btn btn-warning">Edit</a>
+    <a href="/Users" class="btn btn-secondary">Back</a>
+</div>

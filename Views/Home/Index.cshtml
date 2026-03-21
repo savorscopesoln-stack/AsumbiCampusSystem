@@ -1,17 +1,158 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Http
+@{
     ViewData["Title"] = "Home";
+    var username = Context.Session.GetString("Username") ?? "";
 }
 
-<div class="container mt-5">
-    <div class="card p-5 text-center">
-        <h1 class="mb-3">Asumbi Smart Campus Management System</h1>
-        <p class="text-muted mb-4">
-            Secure campus control, attendance, leave management, meal tracking, and role-based administration.
-        </p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - Asumbi Campus System</title>
 
-        <div class="d-flex justify-content-center gap-3 flex-wrap">
-            <a href="/Account/Login" class="btn btn-primary btn-lg">Login</a>
-            <a href="/Home" class="btn btn-secondary btn-lg">Home</a>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+    <style>
+        /* Hero Section */
+        .hero-section {
+            min-height: 75vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/images/campus-hero.jpg') no-repeat center center;
+            background-size: cover;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            animation: fadeInDown 1s ease forwards;
+        }
+
+        .hero-section p {
+            font-size: 1.3rem;
+            margin-top: 1rem;
+            animation: fadeInUp 1.2s ease forwards;
+        }
+
+        .btn-maroon {
+            background-color: #800000;
+            color: white;
+            transition: transform 0.2s, background 0.2s;
+        }
+        .btn-maroon:hover {
+            background-color: #a00000;
+            transform: translateY(-3px);
+        }
+
+        .btn-white {
+            background-color: #ffffff;
+            color: #800000;
+            transition: transform 0.2s, background 0.2s;
+        }
+        .btn-white:hover {
+            background-color: #f8f9fa;
+            transform: translateY(-3px);
+        }
+
+        /* Features Section */
+        .features-section .card {
+            border-radius: 15px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .features-section .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Footer */
+        .footer-section {
+            background: #f8f9fa;
+            color: #6c757d;
+        }
+
+        /* Animations */
+        @@keyframes fadeInDown {
+            0% { opacity: 0; transform: translateY(-20px);}
+            100% { opacity: 1; transform: translateY(0);}
+        }
+
+        @@keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(20px);}
+            100% { opacity: 1; transform: translateY(0);}
+        }
+    </style>
+</head>
+<body class="home-page">
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1>Asumbi Smart Campus Management System</h1>
+            <p>
+                Secure campus management at Asumbi TTC — attendance, leave tracking, meal monitoring, and role-based administration.
+            </p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap mt-3">
+                @if (string.IsNullOrEmpty(username))
+                {
+                    <a href="/Account/Login" class="btn btn-maroon btn-lg">Login</a>
+                }
+                <a href="/Home" class="btn btn-white btn-lg">Home</a>
+            </div>
         </div>
-    </div>
-</div>
+    </section>
+
+    <!-- About Asumbi TTC -->
+    <section class="py-5 bg-light">
+        <div class="container text-center">
+            <h2 class="text-maroon mb-4">About Asumbi TTC</h2>
+            <p class="lead mb-4">
+                Asumbi Teachers Training College (TTC) is dedicated to training competent educators, providing cutting-edge campus systems for efficient management of students, staff, and academic activities. Our smart system ensures accountability, transparency, and seamless operations.
+            </p>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section py-5">
+        <div class="container">
+            <div class="row g-4 text-center">
+                <div class="col-md-4">
+                    <div class="card shadow-sm p-4 h-100">
+                        <h5 class="text-maroon">Attendance Management</h5>
+                        <p>Track student attendance in real-time with automated reporting and alerts.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card shadow-sm p-4 h-100">
+                        <h5 class="text-maroon">Leave Management</h5>
+                        <p>Submit, approve, and monitor leave requests efficiently for students and staff.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card shadow-sm p-4 h-100">
+                        <h5 class="text-maroon">Meal & Role Control</h5>
+                        <p>Monitor meal plans, manage subscriptions, and enforce role-based permissions seamlessly.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-section text-center py-3 text-soft">
+        &copy; 2026 Asumbi Campus System. All rights reserved.
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

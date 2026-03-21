@@ -1,20 +1,17 @@
-@model AsumbiCampusSystem.Models.MealRecord
+@model AsumbiCampusSystem.Models.MealCard
 
 @{
-    ViewData["Title"] = "Meal Details";
+    ViewData["Title"] = "Delete Meal Card";
 }
 
-<div class="container mt-4">
-    <h2>Meal Details</h2>
+<h2>Delete Meal Card</h2>
 
-    <div class="card p-4">
-        <p><strong>Student Name:</strong> @Model.StudentName</p>
-        <p><strong>Admission Number:</strong> @Model.AdmissionNumber</p>
-        <p><strong>Meal Type:</strong> @Model.MealType</p>
-        <p><strong>Date:</strong> @Model.Date</p>
-        <p><strong>Status:</strong> @Model.Status</p>
-    </div>
-
-    <a href="/Meals/Edit/@Model.Id" class="btn btn-warning mt-3">Edit</a>
-    <a href="/Meals" class="btn btn-secondary mt-3">Back</a>
+<div class="alert alert-danger">
+    Are you sure you want to delete this meal card for <strong>@Model.Student.FullName</strong>?
 </div>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

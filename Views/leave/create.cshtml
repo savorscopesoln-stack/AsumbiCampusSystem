@@ -1,64 +1,69 @@
 @model AsumbiCampusSystem.Models.LeaveRecord
 
 @{
-    ViewData["Title"] = "Add Leave Record";
+    ViewData["Title"] = "Create Leave";
 }
 
-<div class="container mt-4">
-    <h2>Add Leave Record</h2>
+<h2>Create Leave</h2>
 
-    @if (ViewBag.Error != null)
-    {
-        <div class="alert alert-danger">@ViewBag.Error</div>
-    }
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label>Admission Number</label>
+        <input type="text" name="AdmissionNumber" id="admissionInput" class="form-control" placeholder="Enter admission number" required />
+    </div>
 
-    <form method="post" action="/Leave/Create">
-        <div class="mb-3">
-            <label class="form-label">Student Name</label>
-            <input name="StudentName" class="form-control" />
-        </div>
+    <div class="mb-3">
+        <label>Student Name</label>
+        <input type="text" id="studentName" class="form-control" readonly />
+    </div>
 
-        <div class="mb-3">
-            <label class="form-label">Admission Number</label>
-            <input name="AdmissionNumber" class="form-control" />
-        </div>
+    <div class="mb-3">
+        <label>Class</label>
+        <input type="text" id="className" class="form-control" readonly />
+    </div>
 
-        <div class="mb-3">
-            <label class="form-label">Reason</label>
-            <input name="Reason" class="form-control" />
-        </div>
+    <div class="mb-3">
+        <label>Reason</label>
+        <input type="text" name="Reason" class="form-control" required />
+    </div>
 
-        <div class="mb-3">
-            <label class="form-label">Time Out</label>
-            <input name="TimeOut" class="form-control" />
-        </div>
+    <div class="mb-3">
+        <label>Time Out</label>
+        <input type="datetime-local" name="TimeOut" class="form-control" required />
+    </div>
 
-        <div class="mb-3">
-            <label class="form-label">Expected Return</label>
-            <input name="ExpectedReturn" class="form-control" />
-        </div>
+    <div class="mb-3">
+        <label>Expected Return</label>
+        <input type="datetime-local" name="ExpectedReturn" class="form-control" required />
+    </div>
 
-        <div class="mb-3">
-            <label class="form-label">Actual Return</label>
-            <input name="ActualReturn" class="form-control" />
-        </div>
+    <button type="submit" class="btn btn-primary">Create Leave</button>
+</form>
 
-        <div class="mb-3">
-            <label class="form-label">Status</label>
-            <select name="Status" class="form-select">
-                <option value="Pending">Pending</option>
-                <option value="Approved">Approved</option>
-                <option value="Closed">Closed</option>
-                <option value="Overdue">Overdue</option>
-            </select>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Approved By</label>
-            <input name="ApprovedBy" class="form-control" />
-        </div>
-
-        <button type="submit" class="btn btn-success">Save</button>
-        <a href="/Leave" class="btn btn-secondary">Back</a>
-    </form>
-</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("#admissionInput").on("input", function() {
+        var admissionNumber = $(this).val().trim();
+        if(admissionNumber.length > 0){
+            $.getJSON("/Leave/GetStudentByAdmission", { admissionNumber: admissionNumber })
+                .done(function(data){
+                    if(data){
+                        $("#studentName").val(data.fullName);
+                        $("#className").val(data.className);
+                    } else {
+                        $("#studentName").val("Not found");
+                        $("#className").val("");
+                    }
+                })
+                .fail(function(){
+                    $("#studentName").val("Error");
+                    $("#className").val("");
+                });
+        } else {
+            $("#studentName").val("");
+            $("#className").val("");
+        }
+    });
+});
+</script>

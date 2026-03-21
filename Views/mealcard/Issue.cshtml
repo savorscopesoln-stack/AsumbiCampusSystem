@@ -1,0 +1,22 @@
+@model List<AsumbiCampusSystem.Models.Student>
+
+@{
+    ViewData["Title"] = "Issue Meal Cards";
+}
+
+<h2>Issue Meal Cards</h2>
+
+<form asp-action="Issue" method="post">
+    <label>Select Students:</label>
+    <select name="studentIds" multiple class="form-control">
+        @foreach(var student in Model)
+        {
+            <option value="@student.Id">@student.FullName (@student.AdmissionNumber)</option>
+        }
+    </select>
+
+    <label>Validity (days):</label>
+    <input type="number" name="validityDays" class="form-control" value="30" />
+
+    <button type="submit" class="btn btn-primary mt-2">Issue Meal Cards</button>
+</form>

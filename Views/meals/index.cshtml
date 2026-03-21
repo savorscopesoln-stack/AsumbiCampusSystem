@@ -1,43 +1,110 @@
-@model List<AsumbiCampusSystem.Models.MealRecord>
+@model IEnumerable<AsumbiCampusSystem.Models.MealCard>
 
 @{
-    ViewData["Title"] = "Meals";
+    ViewData["Title"] = "Meal Cards";
 }
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<style>
+    .expired {
+        background-color: #ffe6e6 !important; /* red tint for expired */
+    }
+    .table th, .table td {
+        vertical-align: middle;
+    }
+    .btn-upload {
+        position: relative;
+        overflow: hidden;
+    }
+    .btn-upload input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        opacity: 0;
+        height: 100%;
+        width: 100%;
+        cursor: pointer;
+    }
+</style>
+
 <div class="container mt-4">
-    <h2 class="mb-3">Meal Records</h2>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Meal Cards</h2>
+        <div>
+            <a href="@Url.Action("Create", "Meals")" class="btn btn-success me-2">Create Meal Card</a>
+            <a href="@Url.Action("DownloadTemplate", "Meals")" class="btn btn-primary me-2">Download Template</a>
+            <form asp-action="UploadExcelFile" asp-controller="Meals" method="post" enctype="multipart/form-data" class="d-inline">
+                <div class="btn btn-warning btn-upload">
+                    Upload Excel
+                    <input type="file" name="file" onchange="this.form.submit()" />
+                </div>
+            </form>
+        </div>
+    </div>
 
-    <a href="/Meals/Create" class="btn btn-primary mb-3">Add Meal Record</a>
-
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered table-hover table-striped align-middle">
         <thead class="table-dark">
             <tr>
-                <th>ID</th>
+                <th>#</th>
                 <th>Student Name</th>
-                <th>Admission</th>
-                <th>Meal Type</th>
-                <th>Date</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Issued By</th>
+                <th>Remarks</th>
                 <th>Status</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-        @foreach (var meal in Model)
-        {
-            <tr>
-                <td>@meal.Id</td>
-                <td>@meal.StudentName</td>
-                <td>@meal.AdmissionNumber</td>
-                <td>@meal.MealType</td>
-                <td>@meal.Date</td>
-                <td>@meal.Status</td>
-                <td>
-                    <a href="/Meals/Details/@meal.Id" class="btn btn-info btn-sm">Details</a>
-                    <a href="/Meals/Edit/@meal.Id" class="btn btn-warning btn-sm">Edit</a>
-                    <a href="/Meals/Delete/@meal.Id" class="btn btn-danger btn-sm">Delete</a>
-                </td>
-            </tr>
-        }
+            @if (Model.Any())
+            {
+                int i = 1;
+                foreach (var meal in Model)
+                {
+                    var isExpired = meal.EndDate < DateTime.Now;
+                    <tr class="@(isExpired ? "expired" : "")">
+                        <td>@i</td>
+                        <td>@meal.Student?.FullName ?? "N/A"</td>
+                        <td>@meal.StartDate.ToString("yyyy MMM dd")</td>
+                        <td>@meal.EndDate.ToString("yyyy MMM dd")</td>
+                        <td>@meal.IssuedBy</td>
+                        <td>@meal.Remarks</td>
+                        <td>
+                            @if (isExpired)
+                            {
+                                <span class="badge bg-danger">Expired</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-success">Active</span>
+                            }
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Edit", "Meals", new { id = meal.Id })" class="btn btn-sm btn-primary me-1">Edit</a>
+                            <a href="@Url.Action("Delete", "Meals", new { id = meal.Id })" class="btn btn-sm btn-danger me-1">Delete</a>
+                            
+                            <!-- Deactivate Button -->
+                            @if(meal.IsActive)
+                            {
+                                <form asp-action="Deactivate" asp-controller="Meals" method="post" class="d-inline">
+                                    <input type="hidden" name="id" value="@meal.Id" />
+                                    <button type="submit" class="btn btn-sm btn-warning">Deactivate</button>
+                                </form>
+                            }
+                        </td>
+                    </tr>
+                    i++;
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="8" class="text-center text-muted">No meal cards found</td>
+                </tr>
+            }
         </tbody>
     </table>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

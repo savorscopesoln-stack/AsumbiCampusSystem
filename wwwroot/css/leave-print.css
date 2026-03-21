@@ -1,0 +1,105 @@
+.leave-print-body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 40px;
+    color: #000;
+    background: linear-gradient(135deg, #ffffff 0%, #f7f0f0 100%);
+    position: relative;
+}
+
+.watermark {
+    position: absolute;
+    top: 40%;
+    left: 15%;
+    font-size: 80px;
+    color: rgba(200, 200, 200, 0.1);
+    transform: rotate(-30deg);
+    z-index: 0;
+}
+
+.leave-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 3px solid #660000;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    z-index: 1;
+}
+
+.leave-header .logo {
+    height: 80px;
+    width: 80px;
+    background: #ccc;
+    text-align: center;
+    line-height: 80px;
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+.leave-header .school-info {
+    text-align: center;
+    flex-grow: 1;
+}
+
+.leave-header .school-info h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #660000;
+}
+
+.leave-header .school-info p {
+    margin: 2px 0;
+    font-size: 14px;
+}
+
+.leave-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 22px;
+    color: #660000;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.leave-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 5px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.leave-table th, .leave-table td {
+    border: 1px solid #333;
+    padding: 10px;
+    font-size: 14px;
+    background: #fff;
+}
+
+.leave-table th {
+    background-color: #660000;
+    color: #fff;
+    text-align: left;
+}
+
+.leave-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.signature {
+    flex: 1 1 200px;
+    padding: 10px;
+    border-radius: 8px;
+    min-width: 180px;
+    font-size: 14px;
+}
+
+/* Role-specific colors */
+.signature.tod { background-color: rgba(255, 192, 203, 0.3); }          /* light pink */
+.signature.class-teacher { background-color: rgba(255, 165, 0, 0.2); } /* orange */
+.signature.deputy-admin { background-color: rgba(173, 216, 230, 0.2); } /* light blue */
+.signature.principal { background-color: rgba(128, 0, 0, 0.3); color: #fff; } /* dark maroon */

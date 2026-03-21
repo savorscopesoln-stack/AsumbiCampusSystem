@@ -1,0 +1,53 @@
+@model AsumbiCampusSystem.Models.MealRecord
+
+@{
+    ViewData["Title"] = "Add Meal Record";
+}
+
+<div class="container mt-4">
+    <h2>Add Meal Record</h2>
+
+    <form asp-action="Add" method="post">
+        <div class="mb-3">
+            <label asp-for="StudentName" class="form-label"></label>
+            <input asp-for="StudentName" class="form-control" />
+            <span asp-validation-for="StudentName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="AdmissionNumber" class="form-label"></label>
+            <input asp-for="AdmissionNumber" class="form-control" />
+            <span asp-validation-for="AdmissionNumber" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="MealType" class="form-label"></label>
+            <select asp-for="MealType" class="form-select">
+                <option value="Breakfast">Breakfast</option>
+                <option value="Lunch">Lunch</option>
+                <option value="Supper">Supper</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Date" class="form-label"></label>
+            <input asp-for="Date" type="date" class="form-control" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
+            <span asp-validation-for="Date" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Status" class="form-label"></label>
+            <select asp-for="Status" class="form-select">
+                <option value="Served">Served</option>
+                <option value="Denied">Denied</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success">Save</button>
+        <a asp-action="Index" class="btn btn-secondary">Back</a>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,247 +1,208 @@
-﻿```cshtml
-@using Microsoft.AspNetCore.Http
+﻿@using Microsoft.AspNetCore.Http
+@{
+    var username = Context.Session.GetString("Username") ?? "Guest";
+    var role = Context.Session.GetString("Role") ?? "Not Logged In";
+    var studentId = Context.Session.GetInt32("StudentId");
+
+    // Generate a related sidebar color based on username hash
+    string GetSidebarShade(string user)
+    {
+        if (string.IsNullOrEmpty(user)) return "#343a40"; // default dark
+        int hash = user.GetHashCode();
+        int r = 52 + Math.Abs(hash % 50);  // subtle variation around base dark
+        int g = 58 + Math.Abs((hash / 7) % 50);
+        int b = 64 + Math.Abs((hash / 13) % 50);
+        return $"rgb({r},{g},{b})";
+    }
+    var sidebarColor = GetSidebarShade(username);
+}
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>@ViewData["Title"] - Asumbi Campus System</title>
 
-<title>@ViewData["Title"] - Asumbi Campus System</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"/>
 
-<link rel="stylesheet"
-href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/css/site.css"/>
 
-<style>
+    <style>
+        /* Sidebar hover animation */
+        .sidebar .nav-link {
+            transition: all 0.3s ease;
+        }
 
-:root{
---bg-main:#f4f7fb;
---sidebar1:#0f172a;
---sidebar2:#1e293b;
---accent:#2563eb;
---accent2:#06b6d4;
---text-soft:#64748b;
---card-shadow:0 8px 24px rgba(0,0,0,0.08);
-}
+        .sidebar .nav-link:hover {
+            transform: translateX(5px);
+            background-color: rgba(255,255,255,0.1);
+        }
 
-body{
-margin:0;
-font-family:Segoe UI;
-background:var(--bg-main);
-}
+        /* Active link highlight */
+        .sidebar .nav-link.active {
+            font-weight: bold;
+            color: #ffc107 !important;
+        }
 
-.sidebar{
-position:fixed;
-left:0;
-top:0;
-height:100%;
-width:250px;
-background:linear-gradient(180deg,var(--sidebar1),var(--sidebar2));
-padding:20px;
-color:white;
-animation:slideIn 0.6s ease;
-}
+        /* Smooth page fade-in */
+        body {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
 
-.sidebar h3{
-font-weight:700;
-margin-bottom:25px;
-}
-
-.sidebar a{
-display:flex;
-align-items:center;
-gap:10px;
-padding:12px 14px;
-margin:6px 0;
-border-radius:10px;
-color:#e2e8f0;
-text-decoration:none;
-transition:0.25s;
-}
-
-.sidebar a:hover{
-background:rgba(255,255,255,0.1);
-transform:translateX(4px);
-}
-
-.main{
-margin-left:250px;
-padding:25px;
-animation:fadeUp 0.6s ease;
-}
-
-.topbar{
-background:white;
-padding:15px 20px;
-border-radius:14px;
-box-shadow:var(--card-shadow);
-margin-bottom:25px;
-}
-
-.card{
-border:none !important;
-border-radius:16px !important;
-box-shadow:var(--card-shadow) !important;
-}
-
-.btn{
-border-radius:10px;
-}
-
-.table{
-background:white;
-border-radius:12px;
-overflow:hidden;
-box-shadow:var(--card-shadow);
-}
-
-.table thead{
-background:#0f172a;
-color:white;
-}
-
-.footer{
-margin-top:25px;
-font-size:13px;
-color:var(--text-soft);
-}
-
-@@keyframes slideIn{
-from{
-opacity:0;
-transform:translateX(-30px);
-}
-to{
-opacity:1;
-transform:translateX(0);
-}
-}
-
-@@keyframes fadeUp{
-from{
-opacity:0;
-transform:translateY(20px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
-
-</style>
+        body.loaded {
+            opacity: 1;
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="sidebar">
+<!-- ================= SIDEBAR ================= -->
+<div class="sidebar p-3 text-white" style="min-height: 100vh; width: 220px; position: fixed; background-color:@sidebarColor;">
+    <h3 class="text-center mb-4 text-maroon">
+        <i class="fa-solid fa-building-columns"></i> ASUMBI
+    </h3>
 
-<h3>
-<i class="fa-solid fa-building-columns"></i>
-ASUMBI
-</h3>
+    @* Active link helper *@
+    @{
+        var currentPath = Context.Request.Path.ToString();
+        Func<string, string> isActive = url => currentPath.StartsWith(url, StringComparison.OrdinalIgnoreCase) ? "active text-warning" : "text-white";
+    }
 
-<a href="/Home">
-<i class="fa-solid fa-house"></i>
-Home
-</a>
+    <nav class="nav flex-column">
 
-<a href="/Dashboard">
-<i class="fa-solid fa-chart-line"></i>
-Dashboard
-</a>
+        <!-- HOME -->
+        <a href="/Home" class="nav-link @isActive("/Home")"><i class="fa-solid fa-house"></i> Home</a>
 
-<a href="/Students">
-<i class="fa-solid fa-user-graduate"></i>
-Students
-</a>
+        <!-- DASHBOARD: Only admins -->
+        @if(role == "Master Admin" || role == "Deputy Admin")
+        {
+            <a href="/Dashboard" class="nav-link @isActive("/Dashboard")"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+        }
 
-<a href="/Staff">
-<i class="fa-solid fa-chalkboard-user"></i>
-Staff
-</a>
+        <!-- STUDENTS: Admins, Class Teachers, Dean -->
+        @if(role == "Master Admin" || role == "Deputy Admin" || role == "Class Teacher" || role == "Dean of Students")
+        {
+            <a href="/Students" class="nav-link @isActive("/Students")"><i class="fa-solid fa-user-graduate"></i> Student Records</a>
+        }
 
-<a href="/Leave">
-<i class="fa-solid fa-file-signature"></i>
-Leave
-</a>
+        <!-- STAFF: Admins only -->
+        @if(role == "Master Admin")
+        {
+            <a href="/Staff" class="nav-link @isActive("/Staff")"><i class="fa-solid fa-chalkboard-user"></i> Staff</a>
+            <a href="/Users" class="nav-link @isActive("/Users")"><i class="fa-solid fa-users"></i> Users</a>
+        }
 
-<a href="/Attendance">
-<i class="fa-solid fa-clipboard-check"></i>
-Attendance
-</a>
+        <!-- ATTENDANCE: Admins and Class Teachers -->
+        @if(role == "Master Admin" || role == "Deputy Admin" || role == "Class Teacher")
+        {
+            <a href="/Attendance" class="nav-link @isActive("/Attendance")"><i class="fa-solid fa-clipboard-check"></i> Attendance</a>
+        }
 
-<a href="/Meals">
-<i class="fa-solid fa-utensils"></i>
-Meals
-</a>
+        <!-- LEAVE: Admins, Class Teachers, Dean, TOD -->
+        @if(role == "Master Admin" || role == "Deputy Admin" || role == "Class Teacher" || role == "Dean of Students" || role == "Teacher On Duty")
+        {
+            <a href="/Leave" class="nav-link @isActive("/Leave")"><i class="fa-solid fa-file-signature"></i> Leave</a>
+        }
 
-<hr/>
+        <!-- MEALS: Admins, Kitchen Staff, Dean -->
+        @if(role == "Master Admin" || role == "Kitchen Staff" || role == "Dean of Students")
+        {
+            <a href="/Meals" class="nav-link @isActive("/Meals")"><i class="fa-solid fa-utensils"></i> Meals</a>
+        }
 
-<a href="/Account/Login">
-<i class="fa-solid fa-right-to-bracket"></i>
-Login
-</a>
+        <hr class="bg-light" />
 
-<a href="/Account/Logout">
-<i class="fa-solid fa-right-from-bracket"></i>
-Logout
-</a>
+        <!-- TEACHER FEATURES -->
+        @if(role == "Teacher" || role == "Class Teacher")
+        {
+            <a href="/Result/Create" class="nav-link @isActive("/Result/Create")"><i class="fa-solid fa-pen"></i> Record Marks</a>
+            <a href="/LearningArea/Create" class="nav-link @isActive("/LearningArea")"><i class="fa-solid fa-book"></i> Add Topics</a>
+            <a href="/Enrollment" class="nav-link @isActive("/Enrollment")"><i class="fa-solid fa-user-plus"></i> Enrollments</a>
+        }
 
+        <!-- STUDENT FEATURES -->
+        @if(role == "Student" && studentId.HasValue)
+        {
+            <a href="/Result/Index?studentId=@studentId" class="nav-link @isActive("/Result/Index")"><i class="fa-solid fa-chart-bar"></i> My Results</a>
+            <a href="/Result/Download?studentId=@studentId" class="nav-link @isActive("/Result/Download")"><i class="fa-solid fa-download"></i> Download Results</a>
+        }
+
+        <hr class="bg-light" />
+
+        <!-- AUTH LINKS -->
+        @if(!string.IsNullOrEmpty(username) && username != "Guest")
+        {
+            <a href="/Account/Logout" class="nav-link @isActive("/Account/Logout")"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+        }
+        else
+        {
+            <a href="/Account/Login" class="nav-link @isActive("/Account/Login")"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+        }
+    </nav>
 </div>
 
-<div class="main">
+<!-- ================= MAIN CONTENT ================= -->
+<div class="main" style="margin-left: 240px; padding: 20px;">
 
-<div class="topbar">
+    <!-- TOPBAR -->
+    <div class="topbar shadow-sm mb-3 d-flex justify-content-between align-items-center border-bottom pb-2">
+        <div>
+            <h5 class="fw-bold text-maroon mb-0">@ViewData["Title"]</h5>
+            <small class="text-muted">Asumbi Smart Campus Management System</small>
+        </div>
+        <div class="text-end">
+            <div class="fw-bold">@username</div>
+            <small>@role</small>
+        </div>
+    </div>
 
-<div class="d-flex justify-content-between align-items-center">
+    <!-- GLOBAL ALERTS -->
+    <div class="container-fluid mt-3">
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show text-center">
+                @TempData["Success"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
 
-<div>
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show text-center">
+                @TempData["Error"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+    </div>
 
-<h5>@ViewData["Title"]</h5>
+    <!-- PAGE CONTENT -->
+    <div class="container-fluid mt-2">
+        @RenderBody()
+    </div>
 
-<small class="text-muted">
-Asumbi Smart Campus Management System
-</small>
-
+    <!-- FOOTER -->
+    <footer class="footer mt-4 text-center text-muted border-top pt-2">
+        © 2026 Asumbi Campus System
+    </footer>
 </div>
 
-<div class="text-end">
-
-<div class="fw-bold">
-
-@(Context.Session.GetString("Username") ?? "Guest")
-
-</div>
-
-<small>
-
-@(Context.Session.GetString("Role") ?? "Not Logged In")
-
-</small>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="container-fluid">
-
-@RenderBody()
-
-</div>
-
-<div class="footer">
-© 2026 Asumbi Campus System
-</div>
-
-</div>
-
+<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
+<script>
+    // Page fade-in animation
+    window.addEventListener('DOMContentLoaded', () => {
+        document.body.classList.add('loaded');
+    });
+</script>
+
+@RenderSection("Scripts", required: false)
 </body>
 </html>
-```

@@ -1,0 +1,45 @@
+@model List<AsumbiCampusSystem.Controllers.EnrollmentViewModel>
+@{
+    ViewData["Title"] = "Enrollments";
+}
+
+<h2>Enrollments</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<a class="btn btn-primary mb-3" href="@Url.Action("Create")">Enroll Student</a>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Student</th>
+            <th>Course</th>
+            <th>Enrolled On</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var e in Model)
+        {
+            <tr>
+                <td>@e.Id</td>
+                <td>@e.StudentName</td>
+                <td>@e.CourseName</td>
+                <td>@e.EnrolledOn.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>
+                    <form method="post" action="@Url.Action("Delete", new { id = e.Id })" style="display:inline">
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to remove this enrollment?');">Remove</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

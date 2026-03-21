@@ -7,13 +7,20 @@
 <div class="container mt-4">
     <h2 class="mb-3">Add Student</h2>
 
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Error"]</div>
+    }
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
     @if (ViewBag.Error != null)
     {
-        <div class="alert alert-danger">
-            @ViewBag.Error
-        </div>
+        <div class="alert alert-danger">@ViewBag.Error</div>
     }
 
+    <!-- Single Student Form -->
     <form method="post" asp-action="Create">
         @Html.AntiForgeryToken()
 
@@ -53,5 +60,21 @@
 
         <button type="submit" class="btn btn-success">Save Student</button>
         <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </form>
+
+    <hr />
+
+    <!-- Excel Upload -->
+    <h4 class="mt-4">Upload Students via Excel</h4>
+    <div class="mb-3">
+        <a asp-action="DownloadTemplate" class="btn btn-info mb-2">Download Template</a>
+    </div>
+
+    <form asp-action="UploadExcel" method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+        <div class="mb-3">
+            <input type="file" name="excelFile" accept=".xlsx,.xls" class="form-control" required />
+        </div>
+        <button type="submit" class="btn btn-success">Upload Excel</button>
     </form>
 </div>

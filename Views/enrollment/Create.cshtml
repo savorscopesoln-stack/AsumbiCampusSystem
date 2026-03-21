@@ -1,0 +1,43 @@
+@{
+    ViewData["Title"] = "Enroll Student";
+    var students = ViewBag.Students as List<AsumbiCampusSystem.Models.Student>;
+    var courses = ViewBag.Courses as List<AsumbiCampusSystem.Models.Course>;
+}
+
+<h2>Enroll Student</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label class="form-label">Student</label>
+        <select name="studentId" class="form-control" required>
+            <option value="">--Select Student--</option>
+            @foreach (var s in students)
+            {
+                <option value="@s.Id">@s.FullName (@s.AdmissionNumber)</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Course</label>
+        <select name="courseId" class="form-control" required>
+            <option value="">--Select Course--</option>
+            @foreach (var c in courses)
+            {
+                <option value="@c.Id">@c.CourseName</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Enroll</button>
+    <a class="btn btn-secondary" href="@Url.Action("Index")">Cancel</a>
+</form>

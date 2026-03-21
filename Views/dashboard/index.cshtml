@@ -1,71 +1,266 @@
+@using System.Text.Json
+@using AsumbiCampusSystem.Models
+
 @{
-    ViewData["Title"] = "Dashboard";
+    ViewData["Title"] = ViewData["Title"] ?? "Dashboard";
+
+    // Dashboard counts
+    var totalStudents = ViewBag.TotalStudents ?? 0;
+    var totalStaff = ViewBag.TotalStaff ?? 0;
+    var activeLeaves = ViewBag.ActiveLeaves ?? 0;
+    var overdueReturns = ViewBag.OverdueReturns ?? 0;
+    var mealsServed = ViewBag.MealsServedToday ?? 0;
+    var mealsDenied = ViewBag.MealsDeniedToday ?? 0;
+    var attendanceToday = ViewBag.AttendanceToday ?? 0;
+
+    var attendanceChart = ViewBag.AttendanceChart ?? new int[] { 0,0,0,0,0,0 };
+    var leaveChart = ViewBag.LeaveChart ?? new int[] { 0,0,0,0,0,0 };
+    var mealChart = ViewBag.MealChart ?? new int[] { 0,0,0,0,0,0 }; // Optional
+
+    // Notifications
+    var unreadCount = ViewBag.UnreadCount ?? 0;
+    var unreadNotifications = ViewBag.UnreadNotifications ?? new List<Notification>();
 }
 
 <div class="container-fluid py-4">
-    <div class="row g-4 mb-4">
 
-        <!-- Card Template -->
-        <div class="col-md-6 col-xl-4">
-            <div class="card shadow-sm border-0 rounded-3 p-4 h-100 text-center animate__animated animate__fadeInUp" style="background: linear-gradient(135deg, #6a11cb, #2575fc); color: white; transition: transform 0.3s;">
-                <p class="text-light mb-2 fw-semibold">Total Students</p>
-                <h2 class="fw-bold mb-0">@ViewBag.TotalStudents</h2>
-            </div>
+    <!-- ================== NOTIFICATIONS DROPDOWN ================== -->
+    <div class="d-flex justify-content-end mb-4">
+        <div class="dropdown">
+            <button class="btn btn-dark dropdown-toggle" type="button" id="notifDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                Notifications <span class="badge bg-danger">@unreadCount</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notifDropdown">
+                @if (unreadNotifications.Count == 0)
+                {
+                    <li class="dropdown-item text-muted">No new notifications</li>
+                }
+                else
+                {
+                    @foreach (var notif in unreadNotifications)
+                    {
+                        <li class="dropdown-item d-flex justify-content-between align-items-start">
+                            <div>
+                                <strong>@notif.Title</strong><br />
+                                <small>@notif.Message</small><br />
+                                <small class="text-muted">@notif.CreatedAt.ToString("g")</small>
+                            </div>
+                            <button class="btn btn-sm btn-success ms-2" onclick="markAsRead(@notif.Id)">Mark Read</button>
+                        </li>
+                    }
+                }
+            </ul>
         </div>
-
-        <div class="col-md-6 col-xl-4">
-            <div class="card shadow-sm border-0 rounded-3 p-4 h-100 text-center animate__animated animate__fadeInUp animate__delay-1s" style="background: linear-gradient(135deg, #ff416c, #ff4b2b); color: white; transition: transform 0.3s;">
-                <p class="text-light mb-2 fw-semibold">Total Staff</p>
-                <h2 class="fw-bold mb-0">@ViewBag.TotalStaff</h2>
-            </div>
-        </div>
-
-        <div class="col-md-6 col-xl-4">
-            <div class="card shadow-sm border-0 rounded-3 p-4 h-100 text-center animate__animated animate__fadeInUp animate__delay-2s" style="background: linear-gradient(135deg, #11998e, #38ef7d); color: white; transition: transform 0.3s;">
-                <p class="text-light mb-2 fw-semibold">Active Leaves</p>
-                <h2 class="fw-bold mb-0">@ViewBag.ActiveLeaves</h2>
-            </div>
-        </div>
-
-        <div class="col-md-6 col-xl-4">
-            <div class="card shadow-sm border-0 rounded-3 p-4 h-100 text-center animate__animated animate__fadeInUp animate__delay-3s" style="background: linear-gradient(135deg, #fc4a1a, #f7b733); color: white; transition: transform 0.3s;">
-                <p class="text-light mb-2 fw-semibold">Overdue Returns</p>
-                <h2 class="fw-bold mb-0">@ViewBag.OverdueReturns</h2>
-            </div>
-        </div>
-
-        <div class="col-md-6 col-xl-4">
-            <div class="card shadow-sm border-0 rounded-3 p-4 h-100 text-center animate__animated animate__fadeInUp animate__delay-4s" style="background: linear-gradient(135deg, #4568dc, #b06ab3); color: white; transition: transform 0.3s;">
-                <p class="text-light mb-2 fw-semibold">Meals Served Today</p>
-                <h2 class="fw-bold mb-0">@ViewBag.MealsServedToday</h2>
-            </div>
-        </div>
-
-        <div class="col-md-6 col-xl-4">
-            <div class="card shadow-sm border-0 rounded-3 p-4 h-100 text-center animate__animated animate__fadeInUp animate__delay-5s" style="background: linear-gradient(135deg, #ff512f, #dd2476); color: white; transition: transform 0.3s;">
-                <p class="text-light mb-2 fw-semibold">Attendance Today</p>
-                <h2 class="fw-bold mb-0">@ViewBag.AttendanceToday</h2>
-            </div>
-        </div>
-
     </div>
+
+    <!-- ================== EXISTING DASHBOARD CONTENT ================== -->
+
+    <!-- DATE FILTER -->
+    <div class="d-flex justify-content-end mb-4">
+        <input type="date" id="reportDate" class="form-control w-auto" />
+    </div>
+
+    <!-- DASHBOARD CARDS -->
+    <div class="row g-4 mb-4">
+        <!-- Students Card -->
+        <div class="col-md-4">
+            <div class="card dashboard-card p-4">
+                <h6>Total Students</h6>
+                <h2>@totalStudents</h2>
+                <div class="mt-3 d-flex gap-2">
+                    <button class="btn btn-dark w-50" onclick="exportPdf('students')">Download PDF</button>
+                    <button class="btn btn-secondary w-50" onclick="exportExcel('students')">Download Excel</button>
+                </div>
+            </div>
+        </div>
+        <!-- Staff Card -->
+        <div class="col-md-4">
+            <div class="card dashboard-card p-4">
+                <h6>Total Staff</h6>
+                <h2>@totalStaff</h2>
+                <div class="mt-3 d-flex gap-2">
+                    <button class="btn btn-dark w-50" onclick="exportPdf('staff')">Download PDF</button>
+                    <button class="btn btn-secondary w-50" onclick="exportExcel('staff')">Download Excel</button>
+                </div>
+            </div>
+        </div>
+        <!-- Attendance Card -->
+        <div class="col-md-4">
+            <div class="card dashboard-card p-4">
+                <h6>Attendance Today</h6>
+                <h2>@attendanceToday</h2>
+                <div class="mt-3 d-flex gap-2">
+                    <button class="btn btn-dark w-50" onclick="exportPdf('attendance')">Download PDF</button>
+                    <button class="btn btn-secondary w-50" onclick="exportExcel('attendance')">Download Excel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Active Leaves Card -->
+        <div class="col-md-4">
+            <div class="card dashboard-card p-4">
+                <h6>Active Leaves</h6>
+                <h2>@activeLeaves</h2>
+                <div class="mt-3 d-flex gap-2">
+                    <button class="btn btn-dark w-50" onclick="exportPdf('activeleave')">Download PDF</button>
+                    <button class="btn btn-secondary w-50" onclick="exportExcel('activeleave')">Download Excel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overdue Returns Card -->
+        <div class="col-md-4">
+            <div class="card dashboard-card p-4">
+                <h6>Overdue Returns</h6>
+                <h2>@overdueReturns</h2>
+                <div class="mt-3 d-flex gap-2">
+                    <button class="btn btn-dark w-50" onclick="exportPdf('overdueleave')">Download PDF</button>
+                    <button class="btn btn-secondary w-50" onclick="exportExcel('overdueleave')">Download Excel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Meals Served Card -->
+        <div class="col-md-4">
+            <div class="card dashboard-card p-4">
+                <h6>Meals Served</h6>
+                <h2>@mealsServed</h2>
+                <div class="mt-3 d-flex gap-2">
+                    <button class="btn btn-dark w-50" onclick="exportPdf('meals')">Download PDF</button>
+                    <button class="btn btn-secondary w-50" onclick="exportExcel('meals')">Download Excel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Meals Denied Card -->
+        <div class="col-md-4">
+            <div class="card dashboard-card p-4">
+                <h6>Meals Denied</h6>
+                <h2>@mealsDenied</h2>
+                <div class="mt-3 d-flex gap-2">
+                    <button class="btn btn-dark w-50" onclick="exportPdf('mealsdenied')">Download PDF</button>
+                    <button class="btn btn-secondary w-50" onclick="exportExcel('mealsdenied')">Download Excel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DOWNLOAD RECORDS BY DATE -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card p-4 shadow">
+                <h5 class="mb-3">Download Records by Date</h5>
+                <div class="d-flex gap-2 align-items-center flex-wrap">
+                    <select id="recordType" class="form-control w-auto">
+                        <option value="students">Students</option>
+                        <option value="staff">Staff</option>
+                        <option value="attendance">Attendance</option>
+                        <option value="activeleave">Active Leaves</option>
+                        <option value="overdueleave">Overdue Leaves</option>
+                        <option value="meals">Meals</option>
+                        <option value="mealsdenied">Meals Denied</option>
+                    </select>
+                    <input type="date" id="recordDate" class="form-control w-auto" />
+                    <button class="btn btn-dark" onclick="exportPdfByType()">Download PDF</button>
+                    <button class="btn btn-secondary" onclick="exportExcelByType()">Download Excel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHARTS -->
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card p-4 shadow">
+                <h5 class="mb-3">Attendance Trend</h5>
+                <canvas id="attendanceChart" height="120"></canvas>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card p-4 shadow">
+                <h5 class="mb-3">Leave Trend</h5>
+                <canvas id="leaveChart" height="120"></canvas>
+            </div>
+        </div>
+    </div>
+
 </div>
 
-<!-- Include Animate.css for animations -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const attendanceData = @Html.Raw(JsonSerializer.Serialize(attendanceChart));
+const leaveData = @Html.Raw(JsonSerializer.Serialize(leaveChart));
+
+new Chart(document.getElementById('attendanceChart'), {
+    type: 'line',
+    data: {
+        labels: ['Mon','Tue','Wed','Thu','Fri','Sat'],
+        datasets: [{
+            label: 'Attendance',
+            data: attendanceData,
+            borderWidth: 3,
+            tension: 0.4,
+            borderColor: '#800000',
+            backgroundColor: 'rgba(128,0,0,0.2)',
+            fill: true
+        }]
+    },
+    options: { responsive:true }
+});
+
+new Chart(document.getElementById('leaveChart'), {
+    type: 'bar',
+    data: {
+        labels: ['Mon','Tue','Wed','Thu','Fri','Sat'],
+        datasets: [{
+            label: 'Leave',
+            data: leaveData,
+            backgroundColor: '#660000'
+        }]
+    },
+    options: { responsive:true }
+});
+
+function exportPdf(type) {
+    let date = document.getElementById("reportDate").value;
+    if(!date) { alert("Please select a date first!"); return; }
+    window.open(`/Dashboard/ExportPdf?type=${type}&date=${date}`, '_blank');
+}
+function exportExcel(type) {
+    let date = document.getElementById("reportDate").value;
+    if(!date) { alert("Please select a date first!"); return; }
+    window.open(`/Dashboard/ExportExcel?type=${type}&date=${date}`, '_blank');
+}
+function exportPdfByType() {
+    let type = document.getElementById("recordType").value;
+    let date = document.getElementById("recordDate").value;
+    if(!date) { alert("Please select a date first!"); return; }
+    window.open(`/Dashboard/ExportPdf?type=${type}&date=${date}`, '_blank');
+}
+function exportExcelByType() {
+    let type = document.getElementById("recordType").value;
+    let date = document.getElementById("recordDate").value;
+    if(!date) { alert("Please select a date first!"); return; }
+    window.open(`/Dashboard/ExportExcel?type=${type}&date=${date}`, '_blank');
+}
+
+// MARK NOTIFICATION AS READ
+function markAsRead(id){
+    fetch(`/Dashboard/MarkNotificationRead?id=${id}`)
+    .then(()=> location.reload());
+}
+</script>
 
 <style>
-    .card:hover {
-        transform: translateY(-8px) scale(1.02);
-        box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-    }
+.dashboard-card { background: #800000; color: white; border-radius: 12px; text-align:center; }
+.dashboard-card h2 { font-weight:bold; font-size:2rem; }
+.btn-dark { background-color:black; color:white; border-radius:8px; }
+.btn-dark:hover { background-color:#333; }
+.btn-secondary { background-color:#444; color:white; border-radius:8px; }
+.btn-secondary:hover { background-color:#222; }
+.card.shadow { box-shadow: 0 8px 20px rgba(0,0,0,0.15); border-radius:12px; }
 
-    p {
-        font-size: 0.95rem;
-        letter-spacing: 0.5px;
-    }
-
-    h2 {
-        font-size: 2.2rem;
-    }
+/* Notification dropdown */
+.dropdown-menu-end { max-height: 300px; overflow-y: auto; }
+.dropdown-item button { margin-left: 8px; }
 </style>

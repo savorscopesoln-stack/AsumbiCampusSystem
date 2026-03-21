@@ -1,0 +1,37 @@
+@model List<AsumbiCampusSystem.Models.User>
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<div class="container mt-4">
+    <h2>Users</h2>
+    <a asp-action="Create" class="btn btn-success mb-3">Add User</a>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Student</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach(var user in Model)
+        {
+            <tr>
+                <td>@user.Id</td>
+                <td>@user.Username</td>
+                <td>@user.Role</td>
+                <td>@user.Student?.FullName ?? "—"</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@user.Id" class="btn btn-warning btn-sm">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@user.Id" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

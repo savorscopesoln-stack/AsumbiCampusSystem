@@ -1,0 +1,138 @@
+@model AsumbiCampusSystem.Models.LeaveRecord
+@{
+    Layout = null; // isolated page for PDF
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Leave Sheet - @Model.StudentName</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 40px;
+            background: linear-gradient(135deg, rgba(128,0,0,0.1), rgba(0,0,0,0.05));
+            position: relative;
+        }
+
+        /* Watermark */
+        body::before {
+            content: "ASUMBI CAMPUS";
+            position: absolute;
+            top: 35%;
+            left: 20%;
+            font-size: 80px;
+            color: rgba(128,0,0,0.1);
+            transform: rotate(-30deg);
+            z-index: 0;
+        }
+
+        .leave-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header .logo {
+            width: 100px;
+        }
+
+        .header .info {
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .header .info h1 {
+            margin: 0;
+            color: maroon;
+            font-size: 24px;
+        }
+
+        .header .info p {
+            margin: 2px 0;
+            font-size: 12px;
+        }
+
+        .leave-title {
+            text-align: center;
+            font-size: 20px;
+            color: maroon;
+            margin: 15px 0;
+            text-decoration: underline;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background: maroon;
+            color: #fff;
+        }
+
+        td {
+            background: #f8f8f8;
+        }
+
+        .signature {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .signature p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="leave-container">
+    <div class="header">
+        <img src="F:/AsumbiCampusSystem/asumbi logo.png" class="logo" />
+        <div class="info">
+            <h1>Asumbi Smart Campus</h1>
+            <p>P.O Box 1234, Nairobi, Kenya</p>
+            <p>Phone: +254 700 000000 | Email: info@asumbi.ac.ke</p>
+        </div>
+    </div>
+
+    <p><strong>Ref No:</strong> L-@Model.Id.ToString("D4")</p>
+
+    <h2 class="leave-title">LEAVE SHEET</h2>
+
+    <table>
+        <tr><th>Student Name</th><td>@Model.StudentName</td></tr>
+        <tr><th>Admission Number</th><td>@Model.AdmissionNumber</td></tr>
+        <tr><th>Class</th><td>@Model.ClassName</td></tr>
+        <tr><th>Reason</th><td>@Model.Reason</td></tr>
+        <tr><th>Time Out</th><td>@Model.TimeOut</td></tr>
+        <tr><th>Expected Return</th><td>@Model.ExpectedReturn</td></tr>
+        <tr><th>Actual Return</th><td>@Model.ActualReturn</td></tr>
+        <tr><th>Status</th><td>@Model.Status</td></tr>
+        <tr><th>Approved By</th><td>@Model.ApprovedBy</td></tr>
+    </table>
+
+    <div class="signature">
+        <p>__________________________</p>
+        <p>Authorized Signature</p>
+    </div>
+</div>
+</body>
+</html>

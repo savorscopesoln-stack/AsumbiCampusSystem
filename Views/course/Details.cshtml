@@ -1,0 +1,27 @@
+@model AsumbiCampusSystem.Models.Course
+@{
+    ViewData["Title"] = "Course Details";
+}
+
+<h2>Course Details</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>ID</th>
+        <td>@Model.Id</td>
+    </tr>
+    <tr>
+        <th>Course Name</th>
+        <td>@Model.CourseName</td>
+    </tr>
+    <tr>
+        <th>Description</th>
+        <td>@Model.Description</td>
+    </tr>
+    <tr>
+        <th>Teacher ID</th>
+        <td>@Model.TeacherId</td>
+    </tr>
+</table>
+
+<a class="btn btn-secondary" href="@Url.Action("Index")">Back to Courses</a>

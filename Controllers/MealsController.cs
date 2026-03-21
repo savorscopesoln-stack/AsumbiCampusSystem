@@ -1,118 +1,132 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using AsumbiCampusSystem.Data;
 using AsumbiCampusSystem.Models;
-using AsumbiCampusSystem.Helpers;
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using OfficeOpenXml;
 
 namespace AsumbiCampusSystem.Controllers
 {
+    // ✅ Include Kitchen Staff here
+    [Authorize(Roles = "Admin,Deputy,Master Admin,Kitchen Staff")]
     public class MealsController : Controller
     {
-        private static List<MealRecord> meals = new List<MealRecord>
-        {
-            new MealRecord
-            {
-                Id = 1,
-                StudentName = "Mary Achieng",
-                AdmissionNumber = "ATC002",
-                MealType = "Lunch",
-                Date = "2026-03-14",
-                Status = "Served"
-            }
-        };
+        private readonly AppDbContextNew _context;
 
-        private bool Allowed()
+        public MealsController(AppDbContextNew context)
         {
-            return RoleHelper.HasAnyRole(HttpContext, "Master Admin", "Deputy Admin", "Kitchen Staff");
+            _context = context;
+
+            // EPPlus license context
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
         }
 
-        public IActionResult Index()
+        // GET: Meals
+        public async Task<IActionResult> Index()
         {
-            if (!Allowed()) return RedirectToAction("AccessDenied", "Account");
-            return View(meals);
+            var mealCards = await _context.MealCards
+                .Include(m => m.Student)
+                .OrderByDescending(m => m.StartDate)
+                .ToListAsync();
+
+            return View(mealCards);
         }
 
-        public IActionResult Details(int id)
-        {
-            if (!Allowed()) return RedirectToAction("AccessDenied", "Account");
-
-            var meal = meals.FirstOrDefault(m => m.Id == id);
-            if (meal == null) return NotFound();
-            return View(meal);
-        }
-
-        [HttpGet]
+        // GET: Meals/Create
         public IActionResult Create()
         {
-            if (!Allowed()) return RedirectToAction("AccessDenied", "Account");
+            ViewBag.Students = _context.Students.ToList();
+            ViewBag.IssuedBy = User.Identity?.Name ?? "System";
             return View();
         }
 
+        // POST: Meals/Create
         [HttpPost]
-        public IActionResult Create(MealRecord meal)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(int studentId, int validDays, string issuedBy)
         {
-            if (!Allowed()) return RedirectToAction("AccessDenied", "Account");
+            if (!_context.Students.Any(s => s.Id == studentId))
+                return NotFound("Student not found");
 
-            if (string.IsNullOrWhiteSpace(meal.StudentName) ||
-                string.IsNullOrWhiteSpace(meal.AdmissionNumber) ||
-                string.IsNullOrWhiteSpace(meal.MealType))
+            var mealCard = new MealCard
             {
-                ViewBag.Error = "Student Name, Admission Number, and Meal Type are required.";
-                return View(meal);
+                StudentId = studentId,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddDays(validDays),
+                IsActive = true,
+                IssuedBy = issuedBy,
+                Remarks = $"Valid for {validDays} days"
+            };
+
+            _context.MealCards.Add(mealCard);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Meals/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null) return NotFound();
+
+            var mealCard = await _context.MealCards
+                .Include(m => m.Student)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (mealCard == null) return NotFound();
+
+            ViewBag.Students = _context.Students.ToList();
+            return View(mealCard);
+        }
+
+        // POST: Meals/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, MealCard mealCard)
+        {
+            if (id != mealCard.Id) return NotFound();
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(mealCard);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!MealCardExists(mealCard.Id))
+                        return NotFound();
+                    else
+                        throw;
+                }
+                return RedirectToAction(nameof(Index));
             }
 
-            meal.Id = meals.Count == 0 ? 1 : meals.Max(m => m.Id) + 1;
-            if (string.IsNullOrWhiteSpace(meal.Status)) meal.Status = "Served";
-
-            meals.Add(meal);
-            return RedirectToAction("Index");
+            ViewBag.Students = _context.Students.ToList();
+            return View(mealCard);
         }
 
-        [HttpGet]
-        public IActionResult Edit(int id)
-        {
-            if (!Allowed()) return RedirectToAction("AccessDenied", "Account");
-
-            var meal = meals.FirstOrDefault(m => m.Id == id);
-            if (meal == null) return NotFound();
-            return View(meal);
-        }
-
+        // POST: Meals/Deactivate/5
         [HttpPost]
-        public IActionResult Edit(MealRecord updatedMeal)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Deactivate(int id)
         {
-            if (!Allowed()) return RedirectToAction("AccessDenied", "Account");
+            var mealCard = await _context.MealCards.FindAsync(id);
+            if (mealCard == null)
+                return NotFound();
 
-            var meal = meals.FirstOrDefault(m => m.Id == updatedMeal.Id);
-            if (meal == null) return NotFound();
+            mealCard.IsActive = false;
+            mealCard.Remarks += " (Deactivated)";
+            await _context.SaveChangesAsync();
 
-            meal.StudentName = updatedMeal.StudentName;
-            meal.AdmissionNumber = updatedMeal.AdmissionNumber;
-            meal.MealType = updatedMeal.MealType;
-            meal.Date = updatedMeal.Date;
-            meal.Status = updatedMeal.Status;
-
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
-        [HttpGet]
-        public IActionResult Delete(int id)
-        {
-            if (!Allowed()) return RedirectToAction("AccessDenied", "Account");
-
-            var meal = meals.FirstOrDefault(m => m.Id == id);
-            if (meal == null) return NotFound();
-            return View(meal);
-        }
-
-        [HttpPost]
-        public IActionResult DeleteConfirmed(int id)
-        {
-            if (!Allowed()) return RedirectToAction("AccessDenied", "Account");
-
-            var meal = meals.FirstOrDefault(m => m.Id == id);
-            if (meal == null) return NotFound();
-
-            meals.Remove(meal);
-            return RedirectToAction("Index");
-        }
+        private bool MealCardExists(int id) => _context.MealCards.Any(e => e.Id == id);
     }
 }

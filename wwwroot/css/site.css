@@ -1,22 +1,226 @@
-html {
-  font-size: 14px;
+/* ===========================
+   Variables
+=========================== */
+:root {
+    --bg-main: #f4f7fb;
+    --sidebar1: #800000;   /* Maroon */
+    --sidebar2: #660000;   /* Darker Maroon */
+    --accent: #000000;     /* Black */
+    --text-soft: #64748b;
+    --card-shadow: 0 8px 24px rgba(0,0,0,0.08);
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
+/* ===========================
+   Body & Global
+=========================== */
 body {
-  margin-bottom: 60px;
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: var(--bg-main);
+}
+
+/* ===========================
+   Sidebar
+=========================== */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 250px;
+    background: linear-gradient(180deg, var(--sidebar1), var(--sidebar2));
+    padding: 20px;
+    color: white;
+}
+
+.sidebar h3 {
+    font-weight: 700;
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+}
+
+.sidebar a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    margin: 6px 0;
+    border-radius: 8px;
+    color: #e2e8f0;
+    text-decoration: none;
+    transition: 0.25s;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background: rgba(255, 255, 255, 0.15);
+    color: var(--accent);
+    font-weight: 600;
+}
+
+/* ===========================
+   Main Content
+=========================== */
+.main {
+    margin-left: 250px;
+    padding: 25px;
+}
+
+/* ===========================
+   Topbar
+=========================== */
+.topbar {
+    background: white;
+    padding: 15px 20px;
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    margin-bottom: 25px;
+}
+
+/* ===========================
+   Footer
+=========================== */
+.footer {
+    margin-top: 25px;
+    font-size: 13px;
+    color: var(--text-soft);
+}
+
+/* ===========================
+   Buttons
+=========================== */
+.btn-maroon {
+    background-color: var(--sidebar1);
+    color: white;
+    border: none;
+    border-radius: 8px;
+}
+
+.btn-maroon:hover {
+    background-color: var(--sidebar2);
+    color: white;
+}.dashboard-controls{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+}
+
+.card-link{
+    text-decoration:none;
+}
+
+.dashboard-card{
+    padding:25px;
+    border-radius:12px;
+    color:white;
+    text-align:center;
+    transition:0.25s;
+    box-shadow:0 8px 20px rgba(0,0,0,0.1);
+}
+
+.dashboard-card h2{
+    font-size:36px;
+    font-weight:700;
+}
+
+.dashboard-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 15px 30px rgba(0,0,0,0.2);
+}
+
+/* CARD COLORS */
+
+.students{
+    background:linear-gradient(135deg,#6a11cb,#2575fc);
+}
+
+.staff{
+    background:linear-gradient(135deg,#ff416c,#ff4b2b);
+}
+
+.leave{
+    background:linear-gradient(135deg,#11998e,#38ef7d);
+}
+
+.overdue{
+    background:linear-gradient(135deg,#fc4a1a,#f7b733);
+}
+
+.meals{
+    background:linear-gradient(135deg,#4568dc,#b06ab3);
+}
+
+.attendance{
+    background:linear-gradient(135deg,#ff512f,#dd2476);
+}
+
+.chart-card{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.1);
+}.dashboard-controls{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:20px;
+}
+
+.card-link{
+text-decoration:none;
+}
+
+.dashboard-card{
+padding:25px;
+border-radius:12px;
+color:white;
+text-align:center;
+transition:0.25s;
+box-shadow:0 8px 20px rgba(0,0,0,0.1);
+}
+
+.dashboard-card h2{
+font-size:36px;
+font-weight:700;
+}
+
+.dashboard-card:hover{
+transform:translateY(-6px);
+box-shadow:0 15px 30px rgba(0,0,0,0.2);
+}
+
+.students{
+background:linear-gradient(135deg,#6a11cb,#2575fc);
+}
+
+.staff{
+background:linear-gradient(135deg,#ff416c,#ff4b2b);
+}
+
+.leave{
+background:linear-gradient(135deg,#11998e,#38ef7d);
+}
+
+.chart-card{
+background:white;
+padding:20px;
+border-radius:12px;
+box-shadow:0 8px 20px rgba(0,0,0,0.1);
+}.dashboard-card{
+    border-radius:12px;
+    cursor:pointer;
+    transition:0.3s;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+.dashboard-card:hover{
+    transform:scale(1.05);
+}
+
+.chart-card{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.1);
 }

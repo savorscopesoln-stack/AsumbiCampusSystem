@@ -1,0 +1,52 @@
+@model IEnumerable<AsumbiCampusSystem.Models.LeaveRecord>
+
+@{
+    ViewData["Title"] = "Gate Staff Dashboard";
+}
+
+<h2>Gate Staff Dashboard</h2>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-info">@TempData["Message"]</div>
+}
+
+<form method="post" asp-action="Scan" class="mb-4">
+    <div class="input-group">
+        <input type="text" name="rfidUID" class="form-control" placeholder="Scan or enter student RFID" autofocus />
+        <button type="submit" class="btn btn-primary">Scan</button>
+    </div>
+</form>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Student Name</th>
+            <th>Leave Status</th>
+            <th>Date Requested</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.StudentName</td>
+                <td>
+                    @if(item.Status == "Approved")
+                    {
+                        <span class="text-success">Allowed to Leave</span>
+                    }
+                    else if(item.Status == "Rejected")
+                    {
+                        <span class="text-danger">Not Allowed</span>
+                    }
+                    else
+                    {
+                        <span class="text-warning">Pending / No Leave</span>
+                    }
+                </td>
+                <td>@item.DateRequested.ToString("g")</td>
+            </tr>
+        }
+    </tbody>
+</table>

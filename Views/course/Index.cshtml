@@ -1,0 +1,38 @@
+@model List<AsumbiCampusSystem.Models.Course>
+@{
+    ViewData["Title"] = "Courses";
+}
+
+<h2>Courses</h2>
+
+<a class="btn btn-primary mb-3" href="@Url.Action("Create")">Add New Course</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Course Name</th>
+            <th>Description</th>
+            <th>Teacher ID</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var course in Model)
+        {
+            <tr>
+                <td>@course.Id</td>
+                <td>@course.CourseName</td>
+                <td>@course.Description</td>
+                <td>@course.TeacherId</td>
+                <td>
+                    <a class="btn btn-sm btn-info" href="@Url.Action("Edit", new { id = course.Id })">Edit</a>
+                    <a class="btn btn-sm btn-success" href="@Url.Action("Details", new { id = course.Id })">Details</a>
+                    <form method="post" action="@Url.Action("Delete", new { id = course.Id })" style="display:inline">
+                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

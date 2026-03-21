@@ -1,0 +1,38 @@
+@model IEnumerable<AsumbiCampusSystem.Models.MealRecord>
+
+@{
+    ViewData["Title"] = "Kitchen Staff Dashboard";
+}
+
+<h2>Kitchen Staff Dashboard</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Student Name</th>
+            <th>Meal Type</th>
+            <th>Status</th>
+            <th>Date/Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.StudentName</td>
+                <td>@item.MealType</td>
+                <td>
+                    @if(item.Status == "Served")
+                    {
+                        <span class="text-success">Served</span>
+                    }
+                    else
+                    {
+                        <span class="text-danger">Denied</span>
+                    }
+                </td>
+                <td>@item.Date.ToString("g")</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,40 @@
+@model IEnumerable<AsumbiCampusSystem.Models.LeaveRecord>
+
+@{
+    ViewData["Title"] = "Gate Staff Dashboard";
+}
+
+<h2>Gate Staff Dashboard</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Student Name</th>
+            <th>Leave Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.StudentName</td>
+                <td>@item.Status</td>
+                <td>
+                    @if(item.Status == "Approved")
+                    {
+                        <span class="text-success">Allowed to Leave</span>
+                    }
+                    else if(item.Status == "Rejected")
+                    {
+                        <span class="text-danger">Not Allowed</span>
+                    }
+                    else
+                    {
+                        <span class="text-warning">Pending / No Leave</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -9,151 +9,287 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = AsumbiCampusSystem
 build_property.RootNamespace = AsumbiCampusSystem
-build_property.ProjectDir = C:\Users\Mac\Documents\Arduino\libraries\TFT_eSPI\ASUMBI SYS\AsumbiCampusSystem\
+build_property.ProjectDir = C:\Users\Mac\Desktop\AsumbiCampusSystem\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Mac\Documents\Arduino\libraries\TFT_eSPI\ASUMBI SYS\AsumbiCampusSystem
+build_property.MSBuildProjectDirectory = C:\Users\Mac\Desktop\AsumbiCampusSystem
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/account/accessDenied.cshtml]
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/account/accessDenied.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcYWNjb3VudFxhY2Nlc3NEZW5pZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/account/login.cshtml]
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/account/login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcYWNjb3VudFxsb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/attendance/create.cshtml]
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/attendance/create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcYXR0ZW5kYW5jZVxjcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/attendance/delete.cshtml]
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/attendance/delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcYXR0ZW5kYW5jZVxkZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/attendance/details.cshtml]
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/attendance/details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcYXR0ZW5kYW5jZVxkZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/attendance/edit.cshtml]
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/attendance/edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcYXR0ZW5kYW5jZVxlZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/attendance/index.cshtml]
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/attendance/index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcYXR0ZW5kYW5jZVxpbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/dashboard/index.cshtml]
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/course/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcY291cnNlXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/course/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcY291cnNlXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/course/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcY291cnNlXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/course/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcY291cnNlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/dashboard/index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcZGFzaGJvYXJkXGluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/Home/Index.cshtml]
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/dashboard/PdfTemplates/ActiveLeaves.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcZGFzaGJvYXJkXFBkZlRlbXBsYXRlc1xBY3RpdmVMZWF2ZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/dashboard/PdfTemplates/AttendanceRecords.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcZGFzaGJvYXJkXFBkZlRlbXBsYXRlc1xBdHRlbmRhbmNlUmVjb3Jkcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/dashboard/PdfTemplates/LeaveRecords.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcZGFzaGJvYXJkXFBkZlRlbXBsYXRlc1xMZWF2ZVJlY29yZHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/dashboard/PdfTemplates/meals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcZGFzaGJvYXJkXFBkZlRlbXBsYXRlc1xtZWFscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/dashboard/PdfTemplates/OverdueLeaves.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcZGFzaGJvYXJkXFBkZlRlbXBsYXRlc1xPdmVyZHVlTGVhdmVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/dashboard/PdfTemplates/Staff.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcZGFzaGJvYXJkXFBkZlRlbXBsYXRlc1xTdGFmZi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/dashboard/PdfTemplates/Students.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcZGFzaGJvYXJkXFBkZlRlbXBsYXRlc1xTdHVkZW50cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/enrollment/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcZW5yb2xsbWVudFxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/enrollment/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcZW5yb2xsbWVudFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/gatestaff/dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcZ2F0ZXN0YWZmXGRhc2hib2FyZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/gatestaff/index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcZ2F0ZXN0YWZmXGluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/gatestaff/scan.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcZ2F0ZXN0YWZmXHNjYW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/Home/Privacy.cshtml]
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/leave/create.cshtml]
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/kitchenstaff/dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3Nca2l0Y2hlbnN0YWZmXGRhc2hib2FyZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/kitchenstaff/index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3Nca2l0Y2hlbnN0YWZmXGluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/kitchenstaff/scan.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3Nca2l0Y2hlbnN0YWZmXHNjYW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/learningarea/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcbGVhcm5pbmdhcmVhXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/learningarea/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcbGVhcm5pbmdhcmVhXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/learningarea/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcbGVhcm5pbmdhcmVhXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/leave/create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcbGVhdmVcY3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/leave/delete.cshtml]
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/leave/delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcbGVhdmVcZGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/leave/details.cshtml]
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/leave/details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcbGVhdmVcZGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/leave/edit.cshtml]
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/leave/edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcbGVhdmVcZWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/leave/index.cshtml]
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/leave/index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcbGVhdmVcaW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/meals/create.cshtml]
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/leave/Print.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcbGVhdmVcUHJpbnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/mealcard/Issue.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcbWVhbGNhcmRcSXNzdWUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/meals/add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcbWVhbHNcYWRkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/meals/create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcbWVhbHNcY3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/meals/delete.cshtml]
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/meals/delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcbWVhbHNcZGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/meals/details.cshtml]
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/meals/details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcbWVhbHNcZGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/meals/edit.cshtml]
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/meals/edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcbWVhbHNcZWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/meals/index.cshtml]
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/meals/index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcbWVhbHNcaW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/Reports/weekly.cshtml]
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/Reports/weekly.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0c1x3ZWVrbHkuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/Shared/Error.cshtml]
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/RESULT/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUkVTVUxUXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/RESULT/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUkVTVUxUXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/RESULT/PdfTemplates/StudentResult.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUkVTVUxUXFBkZlRlbXBsYXRlc1xTdHVkZW50UmVzdWx0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/staff/create.cshtml]
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/staff/create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3Ncc3RhZmZcY3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/staff/details.cshtml]
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/staff/delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3Ncc3RhZmZcZGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/staff/details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3Ncc3RhZmZcZGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/staff/edit.cshtml]
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/staff/edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3Ncc3RhZmZcZWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/staff/Index.cshtml]
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/staff/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3Ncc3RhZmZcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/students/create.cshtml]
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/students/create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3Ncc3R1ZGVudHNcY3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/students/Delete.cshtml]
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/students/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3Ncc3R1ZGVudHNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/students/Details.cshtml]
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/students/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3Ncc3R1ZGVudHNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/students/Edit.cshtml]
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/students/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3Ncc3R1ZGVudHNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/students/index.cshtml]
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/students/index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3Ncc3R1ZGVudHNcaW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/_ViewImports.cshtml]
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/users/create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcdXNlcnNcY3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/users/delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcdXNlcnNcZGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/users/details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcdXNlcnNcZGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/users/edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcdXNlcnNcZWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/users/index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcdXNlcnNcaW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/_ViewStart.cshtml]
+[C:/Users/Mac/Desktop/AsumbiCampusSystem/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Mac/Documents/Arduino/libraries/TFT_eSPI/ASUMBI SYS/AsumbiCampusSystem/Views/Shared/_Layout.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = b-678mnpz9qs

@@ -1,0 +1,44 @@
+@model AsumbiCampusSystem.Models.User
+@{
+    ViewData["Title"] = "Edit User";
+}
+
+<div class="container mt-4">
+    <h2>Edit User</h2>
+
+    <form method="post" asp-action="Edit">
+        <input asp-for="Id" type="hidden" />
+
+        <div class="mb-3">
+            <label asp-for="Username" class="form-label"></label>
+            <input asp-for="Username" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Password" class="form-label"></label>
+            <input asp-for="Password" type="password" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Role" class="form-label"></label>
+            <select asp-for="Role" class="form-select">
+                <option>Master Admin</option>
+                <option>Deputy Admin</option>
+                <option>Class Teacher</option>
+                <option>Teacher</option>
+                <option>Student</option>
+                <option>Kitchen Staff</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="StudentId" class="form-label">Linked Student (optional)</label>
+            <select asp-for="StudentId" class="form-select" asp-items="@(new SelectList(ViewBag.Students, "Id", "FullName", Model.StudentId))">
+                <option value="">-- None --</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success">Save Changes</button>
+        <a asp-action="Index" class="btn btn-secondary">Back</a>
+    </form>
+</div>

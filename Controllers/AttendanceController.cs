@@ -1,120 +1,146 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using AsumbiCampusSystem.Models;
+using AsumbiCampusSystem.Data;
 using AsumbiCampusSystem.Helpers;
 
 namespace AsumbiCampusSystem.Controllers
 {
     public class AttendanceController : Controller
     {
-        private static List<AttendanceRecord> attendance = new List<AttendanceRecord>
+        private readonly AppDbContextNew _context;
+
+        public AttendanceController(AppDbContextNew context)
         {
-            new AttendanceRecord
-            {
-                Id = 1,
-                StudentName = "John Otieno",
-                AdmissionNumber = "ATC001",
-                ClassName = "P1 Science",
-                Date = "2026-03-14",
-                Status = "Present",
-                RecordedBy = "Mr. Onyango"
-            }
-        };
+            _context = context;
+        }
 
         private bool Allowed()
         {
             return RoleHelper.HasAnyRole(HttpContext, "Master Admin", "Deputy Admin", "Class Teacher");
         }
 
-        public IActionResult Index()
+        // GET: Attendance
+        public async Task<IActionResult> Index()
         {
             if (!Allowed()) return RedirectToAction("AccessDenied", "Account");
+
+            var attendance = await _context.AttendanceRecords.ToListAsync();
             return View(attendance);
         }
 
-        public IActionResult Details(int id)
+        // GET: Attendance/Details/5
+        public async Task<IActionResult> Details(int id)
         {
             if (!Allowed()) return RedirectToAction("AccessDenied", "Account");
 
-            var record = attendance.FirstOrDefault(a => a.Id == id);
+            var record = await _context.AttendanceRecords.FindAsync(id);
             if (record == null) return NotFound();
+
             return View(record);
         }
 
-        [HttpGet]
+        // GET: Attendance/Create
         public IActionResult Create()
         {
             if (!Allowed()) return RedirectToAction("AccessDenied", "Account");
             return View();
         }
 
+        // POST: Attendance/Create
         [HttpPost]
-        public IActionResult Create(AttendanceRecord record)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("StudentName,ClassName,Date,Status")] AttendanceRecord attendance)
         {
             if (!Allowed()) return RedirectToAction("AccessDenied", "Account");
 
-            if (string.IsNullOrWhiteSpace(record.StudentName) ||
-                string.IsNullOrWhiteSpace(record.AdmissionNumber) ||
-                string.IsNullOrWhiteSpace(record.ClassName))
+            if (attendance.Date == default) attendance.Date = DateTime.Now;
+
+            if (ModelState.IsValid)
             {
-                ViewBag.Error = "Student Name, Admission Number, and Class Name are required.";
-                return View(record);
+                _context.AttendanceRecords.Add(attendance);
+                await _context.SaveChangesAsync();
+                TempData["Success"] = "Attendance recorded successfully!";
+                return RedirectToAction(nameof(Index));
             }
 
-            record.Id = attendance.Count == 0 ? 1 : attendance.Max(a => a.Id) + 1;
-            if (string.IsNullOrWhiteSpace(record.Status)) record.Status = "Present";
-
-            attendance.Add(record);
-            return RedirectToAction("Index");
+            return View(attendance);
         }
 
-        [HttpGet]
-        public IActionResult Edit(int id)
+        // GET: Attendance/Edit/5
+        public async Task<IActionResult> Edit(int id)
         {
             if (!Allowed()) return RedirectToAction("AccessDenied", "Account");
 
-            var record = attendance.FirstOrDefault(a => a.Id == id);
+            var record = await _context.AttendanceRecords.FindAsync(id);
             if (record == null) return NotFound();
+
             return View(record);
         }
 
+        // POST: Attendance/Edit/5
         [HttpPost]
-        public IActionResult Edit(AttendanceRecord updatedRecord)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,StudentName,ClassName,Date,Status")] AttendanceRecord updatedRecord)
         {
             if (!Allowed()) return RedirectToAction("AccessDenied", "Account");
 
-            var record = attendance.FirstOrDefault(a => a.Id == updatedRecord.Id);
-            if (record == null) return NotFound();
+            if (id != updatedRecord.Id) return NotFound();
 
-            record.StudentName = updatedRecord.StudentName;
-            record.AdmissionNumber = updatedRecord.AdmissionNumber;
-            record.ClassName = updatedRecord.ClassName;
-            record.Date = updatedRecord.Date;
-            record.Status = updatedRecord.Status;
-            record.RecordedBy = updatedRecord.RecordedBy;
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(updatedRecord);
+                    await _context.SaveChangesAsync();
+                    TempData["Success"] = "Attendance updated successfully!";
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!AttendanceRecordExists(updatedRecord.Id))
+                        return NotFound();
+                    else
+                        throw;
+                }
 
-            return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(updatedRecord);
         }
 
-        [HttpGet]
-        public IActionResult Delete(int id)
+        // GET: Attendance/Delete/5
+        public async Task<IActionResult> Delete(int id)
         {
             if (!Allowed()) return RedirectToAction("AccessDenied", "Account");
 
-            var record = attendance.FirstOrDefault(a => a.Id == id);
+            var record = await _context.AttendanceRecords.FindAsync(id);
             if (record == null) return NotFound();
+
             return View(record);
         }
 
-        [HttpPost]
-        public IActionResult DeleteConfirmed(int id)
+        // POST: Attendance/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (!Allowed()) return RedirectToAction("AccessDenied", "Account");
 
-            var record = attendance.FirstOrDefault(a => a.Id == id);
-            if (record == null) return NotFound();
+            var record = await _context.AttendanceRecords.FindAsync(id);
+            if (record != null)
+            {
+                _context.AttendanceRecords.Remove(record);
+                await _context.SaveChangesAsync();
+                TempData["Success"] = "Attendance deleted successfully!";
+            }
 
-            attendance.Remove(record);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool AttendanceRecordExists(int id)
+        {
+            return _context.AttendanceRecords.Any(e => e.Id == id);
         }
     }
 }

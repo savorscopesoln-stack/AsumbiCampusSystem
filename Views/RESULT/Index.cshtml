@@ -1,0 +1,30 @@
+@model IEnumerable<dynamic>
+@{
+    ViewData["Title"] = "Results";
+}
+
+<h2>Results for @ViewBag.Student</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Course</th>
+            <th>Topic</th>
+            <th>CAT</th>
+            <th>Score</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model)
+        {
+            <tr>
+                <td>@r.Course</td>
+                <td>@r.Topic</td>
+                <td>@r.CATName</td>
+                <td>@r.Score</td>
+                <td>@r.DateRecorded.ToString("yyyy-MM-dd")</td>
+            </tr>
+        }
+    </tbody>
+</table>

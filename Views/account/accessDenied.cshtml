@@ -1,13 +1,103 @@
-@{
-    ViewData["Title"] = "Access Denied";
+using Microsoft.EntityFrameworkCore;
+using AsumbiCampusSystem.Data;
+using Rotativa.AspNetCore;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// -------------------------
+// Add services
+// -------------------------
+
+// Controllers with Views
+builder.Services.AddControllersWithViews();
+
+// -------------------------
+// Session setup
+// -------------------------
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromHours(1);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+// -------------------------
+// Database connection
+// -------------------------
+builder.Services.AddDbContext<AppDbContextNew>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        sqlOptions => sqlOptions.EnableRetryOnFailure()
+    )
+);
+
+// -------------------------
+// Authentication (Cookies)
+// -------------------------
+builder.Services.AddAuthentication("MyCookieAuth")
+    .AddCookie("MyCookieAuth", options =>
+    {
+        options.LoginPath = "/Account/Login"; // redirect here if not logged in
+        options.AccessDeniedPath = "/Account/AccessDenied"; // redirect here if role not allowed
+    });
+
+// -------------------------
+// Authorization
+// -------------------------
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOrDeputyOnly", policy =>
+        policy.RequireRole("Admin", "Deputy"));
+});
+
+// -------------------------
+// Build app
+// -------------------------
+var app = builder.Build();
+
+// -------------------------
+// Rotativa Setup
+// -------------------------
+var env = app.Services.GetService<Microsoft.AspNetCore.Hosting.IWebHostEnvironment>();
+if (env != null)
+{
+    RotativaConfiguration.Setup(env.WebRootPath, "Rotativa");
 }
 
-<div class="container mt-5">
-    <div class="card p-5 text-center">
-        <h2 class="text-danger mb-3">Access Denied</h2>
-        <p class="text-muted">
-            You do not have permission to open this page.
-        </p>
-        <a href="/Home" class="btn btn-primary mt-3">Go Home</a>
-    </div>
-</div>
+// -------------------------
+// Middleware pipeline
+// -------------------------
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+app.UseRouting();
+
+// ✅ Authentication & Authorization
+app.UseAuthentication();
+app.UseAuthorization();
+
+// ✅ Session
+app.UseSession();
+
+// -------------------------
+// Default route
+// -------------------------
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}"
+);
+
+// Shortcut route for Meals
+app.MapControllerRoute(
+    name: "meals",
+    pattern: "Meals",
+    defaults: new { controller = "Meals", action = "Index" }
+);
+
+app.Run();

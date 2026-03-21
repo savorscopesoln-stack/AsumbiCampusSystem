@@ -1,0 +1,25 @@
+@model AsumbiCampusSystem.Models.LearningArea
+@{
+    ViewData["Title"] = "Edit Topic";
+}
+
+<h2>Edit Topic: @Model.TopicName</h2>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <div class="mb-3">
+        <label class="form-label">Topic Name</label>
+        <input type="text" name="topicName" value="@Model.TopicName" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea name="description" class="form-control">@Model.Description</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Update Topic</button>
+    <a class="btn btn-secondary" href="@Url.Action("Index", new { courseId = Model.CourseId })">Cancel</a>
+</form>

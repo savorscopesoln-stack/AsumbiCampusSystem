@@ -1,55 +1,44 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using AsumbiCampusSystem.Models;
+using AsumbiCampusSystem.Data;
 using AsumbiCampusSystem.Helpers;
 
 namespace AsumbiCampusSystem.Controllers
 {
     public class StaffController : Controller
     {
-        private static List<StaffMember> staff = new List<StaffMember>
+        private readonly AppDbContextNew _context;
+
+        public StaffController(AppDbContextNew context)
         {
-            new StaffMember
-            {
-                Id = 1,
-                FullName = "Mr. Onyango",
-                StaffNumber = "ST001",
-                Department = "Education",
-                PhoneNumber = "0712345678",
-                RFID_UID = "STAFF001",
-                Status = "Active"
-            },
-            new StaffMember
-            {
-                Id = 2,
-                FullName = "Ms. Akinyi",
-                StaffNumber = "ST002",
-                Department = "ICT",
-                PhoneNumber = "0798765432",
-                RFID_UID = "STAFF002",
-                Status = "Active"
-            }
-        };
+            _context = context;
+        }
 
         private bool Allowed()
         {
             return RoleHelper.HasAnyRole(HttpContext, "Master Admin", "Deputy Admin");
         }
 
-        public IActionResult Index()
+        // GET: Staff
+        public async Task<IActionResult> Index()
         {
             if (!Allowed()) return RedirectToAction("AccessDenied", "Account");
+            var staff = await _context.StaffMembers.ToListAsync();
             return View(staff);
         }
 
-        public IActionResult Details(int id)
+        // GET: Staff/Details/5
+        public async Task<IActionResult> Details(int id)
         {
             if (!Allowed()) return RedirectToAction("AccessDenied", "Account");
 
-            var member = staff.FirstOrDefault(s => s.Id == id);
+            var member = await _context.StaffMembers.FindAsync(id);
             if (member == null) return NotFound();
             return View(member);
         }
 
+        // GET: Staff/Create
         [HttpGet]
         public IActionResult Create()
         {
@@ -57,8 +46,10 @@ namespace AsumbiCampusSystem.Controllers
             return View();
         }
 
+        // POST: Staff/Create
         [HttpPost]
-        public IActionResult Create(StaffMember member)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(StaffMember member)
         {
             if (!Allowed()) return RedirectToAction("AccessDenied", "Account");
 
@@ -70,60 +61,65 @@ namespace AsumbiCampusSystem.Controllers
                 return View(member);
             }
 
-            member.Id = staff.Count == 0 ? 1 : staff.Max(s => s.Id) + 1;
             if (string.IsNullOrWhiteSpace(member.Status)) member.Status = "Active";
 
-            staff.Add(member);
+            _context.StaffMembers.Add(member);
+            await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
+        // GET: Staff/Edit/5
         [HttpGet]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             if (!Allowed()) return RedirectToAction("AccessDenied", "Account");
 
-            var member = staff.FirstOrDefault(s => s.Id == id);
+            var member = await _context.StaffMembers.FindAsync(id);
             if (member == null) return NotFound();
             return View(member);
         }
 
+        // POST: Staff/Edit/5
         [HttpPost]
-        public IActionResult Edit(StaffMember updatedMember)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, StaffMember updatedMember)
         {
             if (!Allowed()) return RedirectToAction("AccessDenied", "Account");
 
-            var member = staff.FirstOrDefault(s => s.Id == updatedMember.Id);
-            if (member == null) return NotFound();
+            if (id != updatedMember.Id) return NotFound();
 
-            member.FullName = updatedMember.FullName;
-            member.StaffNumber = updatedMember.StaffNumber;
-            member.Department = updatedMember.Department;
-            member.PhoneNumber = updatedMember.PhoneNumber;
-            member.RFID_UID = updatedMember.RFID_UID;
-            member.Status = updatedMember.Status;
-
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _context.Update(updatedMember);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View(updatedMember);
         }
 
+        // GET: Staff/Delete/5
         [HttpGet]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             if (!Allowed()) return RedirectToAction("AccessDenied", "Account");
 
-            var member = staff.FirstOrDefault(s => s.Id == id);
+            var member = await _context.StaffMembers.FindAsync(id);
             if (member == null) return NotFound();
             return View(member);
         }
 
-        [HttpPost]
-        public IActionResult DeleteConfirmed(int id)
+        // POST: Staff/DeleteConfirmed/5
+        [HttpPost, ActionName("DeleteConfirmed")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (!Allowed()) return RedirectToAction("AccessDenied", "Account");
 
-            var member = staff.FirstOrDefault(s => s.Id == id);
+            var member = await _context.StaffMembers.FindAsync(id);
             if (member == null) return NotFound();
 
-            staff.Remove(member);
+            _context.StaffMembers.Remove(member);
+            await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
     }
